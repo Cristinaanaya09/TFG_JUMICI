@@ -1,0 +1,42 @@
+{
+    "name": "One",
+    "currentStep": 0,
+    "length": 10,
+    "actionKeys": [
+        "activateDialogView",
+        "loadCharacter",
+        "loadCharacter",
+        "toggleCenter",
+        "showMessage",
+        "toggleCenter",
+        "toggleOut",
+        "showMessage",
+        "toggleOut",
+        "toggleOut"
+    ],
+    "actionArguments": [
+        "office1.jpg",
+        [
+            "left",
+            "char1.png"
+        ],
+        [
+            "right",
+            "char2.png"
+        ],
+        "left",
+        [
+            0,
+            0
+        ],
+        "left",
+        "right",
+        [
+            0,
+            1
+        ],
+        "left",
+        "right"
+    ],
+    "actions": {}
+}

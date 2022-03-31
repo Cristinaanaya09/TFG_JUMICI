@@ -1,0 +1,33 @@
+{
+  "name": "real",
+  "version": "1.0.0",
+  "description": "CiberJuego",
+  "scripts": {
+    "start": "node ./bin/www",
+    "super": "supervisor ./bin/www",
+    "migrate": "sequelize db:migrate --url sqlite://$(pwd)/db.sqlite",
+    "seed": "sequelize db:seed:all --url sqlite://$(pwd)/db.sqlite",
+    "migrate_win": "sequelize db:migrate --url sqlite://%cd%/user.sqlite",
+    "seed_win": "sequelize db:seed:all --url sqlite://%cd%/user.sqlite"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-mysql-session": "^2.1.7",
+    "express-partials": "^0.3.0",
+    "express-session": "^1.17.2",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "mysql": "^2.18.1",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0",
+    "sequelize": "^6.6.2",
+    "sequelize-cli": "^6.2.0",
+    "sqlite3": "^5.0.2",
+    "supervisor": "^0.12.0"
+  }
+}

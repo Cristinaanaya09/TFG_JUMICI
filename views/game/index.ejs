@@ -1,0 +1,74 @@
+<script type="text/javascript">
+    segundos = 0;
+    minutos = 0;
+    horas= 0;
+    textoSeg="00";
+    textoMin="00";
+    textoHoras="00";
+    function tiempo() {
+        segundos++;
+        if(segundos==60){
+            minutos++;
+            segundos = 0;
+        }
+        if(minutos==60){
+            horas++;
+            minutos=0;
+        }
+        if(minutos<10){
+            textoMin="0"+minutos;
+        }
+        else{
+            textoMin=minutos;
+        }
+        if(segundos<10){
+            textoSeg="0"+segundos;
+        }else{
+            textoSeg=segundos;
+        }
+        document.getElementById("temporizador").innerHTML = textoHoras + ":" + textoMin + ":" + textoSeg;
+    }
+    //Cada 1 segundo se crea un nuevo elemento
+    setInterval(function () {
+        tiempo();
+    }, 1000);
+
+</script>
+
+
+<section id="game">
+    <nav class="loginNav">
+        <h1>WELCOME TO JUMICI</h1>
+        <div id="temporizador"></div>
+        <a href="/logout" class="btn-primary" id="btn-nav">Log out</a>
+    </nav>
+    <div id="canvas">
+        <!-- Dialog View -->
+        <div id="background" state>
+        </div>
+        <div id="left" class="character out"></div>
+        <div id="right" class="character out"></div>
+        <div id="dialog" class='out'>
+            <div id="speaker"><span id="blankedMessage">Title</span></div>
+            <div id="message"></div>
+        </div>
+
+        <!-- Test View -->
+        <div id="test" class='out'>
+            <div id="question"></div>
+            <div id="answers">
+                <form method="post">
+                    <button id="button-A" class="test-button">A) <div id="text-A" class="small-text" name="button"></div>
+                    </button>
+                    <button id="button-B" class="test-button">B) <div id="text-B" class="small-text" name="button"></div>
+                    </button>
+                    <button id="button-C" class="test-button">C) <div id="text-C" class="small-text" name="button"></div>
+                    </button>
+                    <button id="button-D" class="test-button">D) <div id="text-D" class="small-text" name="button"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,26 @@
+<div class="loginBody">
+    <nav class="loginNav">
+        <h1>WELCOME TO JUMICI</h1>
+        <a href="./register" class="btn-primary" id="btn-nav">Sign up</a>
+    </nav>
+
+    <div class="login">
+        <% if(message){%>
+            <div id="message">
+                <div class="message">
+                    <a id="cerrar" href="/close">&times;</a>
+                    <%= message %>
+                </div>
+            </div>
+        <%}%>
+        
+                <h1>Login</h1>
+                <p id="title">Enter your Moodle username and password.</p>
+                <form name="form" class="form" action="/" method="post">
+                    <input type="text" class="usuario" name="username" placeholder="Username" required="required" />
+                    <input type="password" class="usuario" name="password" placeholder="Password" required="required"
+                        autocomplete="off" />
+                    <button type="submit" class="btn-login btn-primary usuario">Login.</button>
+                </form>
+            </div>
+        </div>
