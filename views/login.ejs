@@ -1,17 +1,17 @@
 <div class="loginBody">
     <nav class="loginNav">
         <h1>WELCOME TO JUMICI</h1>
-        <a href="./register" class="btn-primary" id="btn-nav">Sign up</a>
+        <a href="./register" class="btn btn-outline-light btn-nav">Sign up</a>
     </nav>
 
-    <div class="login">
+    <div class="login" id="container">
         <% if(message){%>
-            <div id="message">
-                <div class="message">
-                    <a id="cerrar" href="/close">&times;</a>
+            <div id="messageMal">
+                <div class="message" style=" font-size: large;">
+                    <a id="cerrar" style="color: white!important;" href="/close">&times;</a>
                     <%= message %>
                 </div>
-            </div>
+            </div> 
         <%}%>
         
                 <h1>Login</h1>

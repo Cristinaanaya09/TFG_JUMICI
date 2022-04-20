@@ -1,32 +1,37 @@
-<div class="loginBody">
+<div class="registerPage">
     <nav class="loginNav">
         <h1>WELCOME TO JUMICI</h1>
-        <a class="btn-primary" id="btn-nav" href="./">Login</a>
+        <a class="btn btn-outline-light btn-nav" href="./">Login</a>
     </nav>
-    <div class="login">
-        <% if(message){%>
-            <div id="message">
-                <div class="message">
-                    <a id="cerrar" href="/close">&times;</a>
-                    <%= message %>
+    <div class="registerBody">
+        <div class="register" id="containerReg">
+            <% if(message){%>
+                <div id="message">
+                    <div class="message">
+                        <a id="cerrar" href="/close">&times;</a>
+                        <%= message %>
+                    </div>
                 </div>
-            </div>
-        <%}%>
-        <p id="description title">Create your account:</p>
-        <form class="form" action="/register" method="POST">
-            <p class="register">Name:</p>
-            <input type="text" class="usuario" name="name" placeholder="Full name" required="required" />
-            <p class="register">User name:</p>
-            <input type="text" class="usuario" name="username" placeholder="Username" required="required" />
-            <p class="register">Email:</p>
-            <input type="email" class="usuario" name="email" placeholder="Email" required="required" />
-            <p class="register">Password:</p>
-            <input type="password" class="usuario" name="password" placeholder="Password" required="required"
-                autocomplete="off" />
-            <p class="register">Repeat Password:</p>
-            <input type="password" class="usuario" name="passwordRep" placeholder="Password" required="required"
-                autocomplete="off" />
-            <button type="submit" class="btn-login btn-primary usuario">Create.</button>
-        </form>
+                <%}%>
+                    <p id="description title">Create your account:</p>
+                    <form class="form" action="/register" method="POST">
+                        <p class="register">Name:</p>
+                        <input type="text" class="usuario" name="name" placeholder="Full name" required="required" />
+                        <p class="register">User name:</p>
+                        <input type="text" class="usuario" name="username" placeholder="Username" required="required" />
+                        <p class="register">Email:</p>
+                        <input type="email" class="usuario" name="email" placeholder="Email" required="required" />
+                        <p class="register">Password:</p>
+                        <input type="password" class="usuario" name="password" placeholder="Password"
+                            required="required" autocomplete="off" />
+                        <p class="register">Repeat Password:</p>
+                        <input type="password" class="usuario" name="passwordRep" placeholder="Password"
+                            required="required" autocomplete="off" />
+                        <button type="submit" class="btn-login btn-primary usuario">Create.</button>
+                    </form>
+        </div>
+        <div class="registerText">
+            Thank you for registering on Junmici. You will learn without realizing it.
+        </div>
     </div>
 </div>

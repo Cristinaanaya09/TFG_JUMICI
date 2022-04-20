@@ -1,45 +1,73 @@
 const { models } = require('../models');
 
-exports.seguimiento = async (res, button, next) => {
-   try{
-    let seguimiento;
-    console.log("SEGUIR ALUMNO")
-    //console.log("user"+user)
-    escena= "escenaOne";
-    /*recorrido = await models.Recorrido.findOne({where: {
-        user: user,
-        escena: escena, 
-    }});
-    if(recorrido==null){
-        seguimiento ={
-            user: user.nombre,
-            answers: answers,
-            tiempo,
+exports.seguimiento = async (req, res, next) => {
+    try {
+        console.log("SEGUIR ALUMNO")
+        console.log("id usuario: " + req.user.id);
+        let correct=0;
+        let correctAnswer = await models.Answer.findOne({ where: { 
+                                                            scene: parseInt(req.body.sceneNumber),
+                                                            question: parseInt(req.body.testNumber),
+                                                        } });
+        console.log("respCORRECTA: " + correctAnswer)
+        if(correctAnswer!==null)
+            if (correctAnswer.answer === req.body.id)
+                correct = 1;
+    console.log("correcto: " + correct)
+        let respuesta = {
+            scene: parseInt(req.body.sceneNumber),
+            user: req.user.id,
+            question: parseInt(req.body.testNumber),
+            answer: req.body.id,
+            time: req.body.time,
+            correct: correct,
         }
-    }else{
-        recorrido.answers.push(answer)
-        console.log("SEGUIR answers"+anwers);
-        console.log("SEGUIR user"+user)
-        seguimiento ={
-            user: recorrido.user.nombre,
-            answers: recorrido.answers,
-            tiempo,
-        } 
-    }*/
-    console.log("button: " + button)
-    //console.log("button: " + JSON.stringify(button))
-    let answers=button[0] ;
-    console.log("answers "+answers)
-    seguimiento ={
-        escena: escena,
-        user: "Carolina",
-        answers: answers,
-        tiempo:"tiempo",
+
+        console.log("RESPUESTA ALUMNO " + respuesta)
+        await models.UserAnswer.create(respuesta);
+        res.end();
+    } catch (e) {
+        console.log("ERROR: " + e)
     }
-    await models.Recorrido.create(seguimiento);
-    res.render('/game');
-   }catch(e){
-       console.log("ERROR: "+ e)
-   }
 
 }
+
+exports.escenas = async (req, res, next) => {
+    try {
+        console.log("ESCENA")
+        let scene = await models.Scene.findAll({where: {name: req.body.name}});
+        if(scene!==null)
+            await models.Scene.create(req.body);
+        res.end();
+    } catch (e) {
+        console.log("ERROR: " + e)
+    }
+
+}
+
+exports.answers = async (req, res, next) => {
+    try {
+        console.log("respuuuuuuu")
+        let correctAnswer = {
+            scene: 0,
+            question: 0,
+            answer: 'B',
+        }
+        await models.Answer.create(correctAnswer);
+        res.end();
+    } catch (e) {
+        console.log("ERROR: " + e)
+    }
+
+}
+
+exports.final = async (req, res, next) => {
+    try {
+        console.log("Final!!")
+        res.redirect('/index');
+    } catch (e) {
+        console.log("ERROR: " + e)
+    }
+
+}
+

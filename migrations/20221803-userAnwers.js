@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
 
     return queryInterface.createTable(
-      'Users',
+      'UserAnswers',
       {
         id: {
           type: Sequelize.INTEGER,
@@ -13,25 +13,35 @@ module.exports = {
           autoIncrement: true,
           unique: true
         },
-        name: {
-          type: Sequelize.STRING,
-          unique: false
+        user:{
+          type: Sequelize.INTEGER,
+          foreignKey: true,
+          references: {
+            model: "Users",
+            key: "id"
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
+          allowNull: false,
         },
-        username: {
-          type: Sequelize.STRING,
-          unique: true
+        scene:{
+          type: Sequelize.INTEGER,
+          allowNull: false,
         },
-        email: {
-          type: Sequelize.STRING,
-          unique: true
+        question: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
         },
-        password: {
+        answer: {
           type: Sequelize.STRING,
-          allowNull: false
+          allowNull: false,
         },
-        role:{
-          type: Sequelize.ENUM,
-          values: ['ALUMNO', 'PROFE'],
+        time: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        correct: {
+          type: Sequelize.INTEGER,
           allowNull: false
         },
         createdAt: {
@@ -50,6 +60,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('Answers');
   }
 };

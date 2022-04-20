@@ -1,10 +1,17 @@
 var express = require('express');
 var router = express.Router();
 const seguirController = require("../controllers/seguirAlumno");
+const resultController = require("../controllers/resultados");
+const indexController = require("../controllers/index");
 const passport = require('passport');
 const { models } = require('../models');
-const {isNotLoggedIn, isLoggedIn} = require('../controllers/link')
+const {isNotLoggedIn, isLoggedIn, isAdmin} = require('../controllers/link')
 
+
+////////////////////////////PARAMS/////////////////////////////
+
+// Autoload for routes using :quizId
+router.param('sceneId', indexController.load);
 
 ////////////////////////////LOGIN/////////////////////////////
 /* GET home page. */
@@ -18,7 +25,7 @@ router.get('/', isNotLoggedIn, function (req, res, next) {
 
 router.post('/', (req, res, next) => {
   passport.authenticate('local.signin', {
-    successRedirect: '/game',
+    successRedirect: '/index',
     failureRedirect: '/',
     failureFlash: true
   })(req, res, next);}
@@ -42,7 +49,7 @@ router.get('/register', function (req, res, next) {
 
 router.post('/register', (req, res, next) => {
   passport.authenticate('local.signup', {
-    successRedirect: '/',
+    successRedirect: '/index',
     failureRedirect: '/register',
     failureFlash: true
   }) (req, res, next);}
@@ -54,8 +61,25 @@ router.get('/logout', isLoggedIn, function (req, res, next) {
   req.logOut();
   res.redirect('/');
 })
+/////////////////////////INDEX/////////////////////////////
+
+router.get('/index', isLoggedIn, indexController.index);
+router.post('/index', isLoggedIn, isAdmin, indexController.crear);
+router.get('/delete/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.delete);
+router.post('/edit/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.edit);
+
+/////////////////////////RESULTADOS/////////////////////////////
+router.get('/resultados', isLoggedIn, isAdmin, resultController.resultados);
+
+router.post('/filter', isLoggedIn, isAdmin, resultController.filter);
 
 ////////////////////////////GAME///////////////////////////////
+
+router.post('/escena', isLoggedIn, seguirController.escenas);
+router.post('/final', isLoggedIn, seguirController.final);
+
+router.get('/resultados', isLoggedIn, isAdmin, resultController.resultados);
+
 
 router.get('/game', isLoggedIn, function (req, res, next) {
   res.render('game');
@@ -63,5 +87,7 @@ router.get('/game', isLoggedIn, function (req, res, next) {
 );
 
 router.post('/game', seguirController.seguimiento);
+
+router.post('/answers', seguirController.answers);
 
 module.exports = router;

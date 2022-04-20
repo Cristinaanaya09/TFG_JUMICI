@@ -1,0 +1,108 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<section>
+    <nav class="loginNav">
+        <h1>JUMICI <img src=./images/app/icon.png height="29"></h1>
+        <div>
+            <a href="/index" class="btn btn-outline-dark btn-nav">Escenas</a>
+            <a href="/logout" class="btn btn-outline-dark btn-nav">Log out</a>
+        </div>
+    </nav>
+    <div class="m-5">
+        <div class="alert alert-primary" role="alert">
+            <ul class="li">
+                <p class="li">Name</p>
+                <p class="li">Email</p>
+                <p class="li">Correct Answers</p>
+                <p class="li"></p>
+            </ul>
+        </div>
+        <div class="accordion" id="myAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne">
+                        <ul class="li">
+                            <div class="lis">
+                                <%=user.name%>
+                            </div>
+                            <div class="lis">
+                                <%=user.email%>
+                            </div>
+                            <div class="li"></div>
+                            <div class="li"></div>
+                            <img src=https://cdn-icons-png.flaticon.com/512/32/32195.png width="26" height="15"
+                                class="float-end p-y-3"></img>
+                        </ul>
+
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse">
+                   
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" style="background-color: #363428; color: white;">
+                                <ul class="li">
+                                    <div class="lis">
+                                        <%=escena.name%>
+                                    </div>
+                                    <div class="li"></div>
+                                    <div class="li">
+                                        <%=total%>/<%=filter.length%>
+                                    </div>
+                                    <img src=https://cdn-icons-png.flaticon.com/512/32/32195.png width="26" height="15"
+                                        class="float-end p-y-3"></img>
+                                </ul>
+
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse">
+                            <div class="card-body">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Question</th>
+                                            <th scope="col">Answer</th>
+                                            <th scope="col">Time</th>
+                                            <th scope="col">Correct</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for(let filtro of filter) {%>
+                                            <tr>
+
+                                                <th scope="row">
+                                                    <%=filtro.createdAt%>
+                                                </th>
+                                                <td>
+                                                    <%=filtro.question%>
+                                                </td>
+                                                <td>
+                                                    <%=filtro.answer%>
+                                                </td>
+                                                <td>
+                                                    <%=filtro.time%>
+                                                </td>
+                                                <%if(filtro.correct){%>
+                                                    <td><img src=https://www.pngmart.com/files/3/Green-Tick-Transparent-PNG.png
+                                                            height=10%>
+                                                    </td>
+                                                    <% }else {%>
+                                                        <td><img src=https://starpng.com/public/uploads/preview/cross-png-cross-png-101576822774gb15sk8uvv.png
+                                                                height=10%></td>
+                                                        <%}%>
+                                            </tr>
+                                            <%}%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

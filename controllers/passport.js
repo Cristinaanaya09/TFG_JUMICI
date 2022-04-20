@@ -39,12 +39,16 @@ passport.use('local.signup', new Strategy({
 
     try {
         const { name, email, passwordRep } = req.body;
+        let role='ALUMNO'
+        if(email.includes('@upm.es'))
+            role='PROFE'
         if (passwordRep === password) {
             newUser = {
                 username,
                 password,
                 name,
-                email
+                email,
+                role
             }
         } else {
             return done(null, false, req.flash('message', "Passwords does not match"));

@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
 
     return queryInterface.createTable(
-      'Recorridos',
+      'Answers',
       {
         id: {
           type: Sequelize.INTEGER,
@@ -13,19 +13,15 @@ module.exports = {
           autoIncrement: true,
           unique: true
         },
-        escena: {
-          type: Sequelize.STRING,
-          unique: true
-        },
-        user: {
-          type: Sequelize.STRING,
-          unique: true
-        },
-        anwers: {
+        scene: {
           type: Sequelize.STRING,
           unique: false
         },
-        tiempo: {
+        question: {
+          type: Sequelize.STRING,
+          unique: false
+        },
+        answer: {
           type: Sequelize.STRING,
           unique: false
         },

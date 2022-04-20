@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
 
     return queryInterface.createTable(
-      'Answers',
+      'Scenes',
       {
         id: {
           type: Sequelize.INTEGER,
@@ -13,13 +13,17 @@ module.exports = {
           autoIncrement: true,
           unique: true
         },
-        question: {
+        name: {
+          type: Sequelize.STRING,
+          unique: true
+        },
+        rutaImage: {
           type: Sequelize.STRING,
           unique: false
         },
-        answer: {
+        descripcion: {
           type: Sequelize.STRING,
-          unique: false
+          allowNull: false
         },
         createdAt: {
           type: Sequelize.DATE,
@@ -37,6 +41,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Answers');
+    return queryInterface.dropTable('Users');
   }
 };

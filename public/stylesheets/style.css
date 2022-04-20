@@ -8,6 +8,57 @@ body{
     height: 100vh;
 }
 
+
+nav{
+    margin: 0px;
+    display: flex;
+    padding-left: 9px;
+    font-size: large;
+    font-family:sans-serif;
+    justify-content: space-between;
+    /*background-color: rgb(255 177 0 / 82%)*/
+    background-color:rgb(12 8 39)
+
+}
+.btn-nav{
+    color: white!important;
+    margin: 4px;
+}
+
+.btn-nav:hover{
+    background-color: white!important;
+    color: rgb(12 8 39) !important;
+}
+
+
+#btn-nav{ 
+    width:15%;
+    margin: 4px;
+    font-size: 15px; 
+    text-align: center;
+    text-decoration: none;
+    color: #000000; 
+    background-color: #fffaac;
+    border: 1px solid #718a6d; 
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5); 
+}
+  nav h1{
+      margin: 0px;
+      padding: 0px;
+      font-size: x-large;
+      display: flex;
+      color: white;
+    align-items: center;
+  }
+
+  #btn-nav:hover, .btn-primary:hover { 
+    cursor: pointer;  
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #4c00ff; 
+  }
+
+
 /*************************LOGIN***************************/
 .login{
     display: flex;
@@ -34,12 +85,7 @@ body{
     border-radius: 4px;
     box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
     border-color: #181f1b;
-}
-.register{
-    margin: 0px;
-    margin-top: 8px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 15px;
+    font-size: medium;
 }
 
 .btn-login{
@@ -49,8 +95,175 @@ body{
 
 #title{
     font-family:Arial, Helvetica, sans-serif ;
-    font-size: 20px;
+    font-size: medium;
+    width: 65%; 
+    padding: 10px;
+    text-align: center;
 }
+
+#container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 31%;
+    min-width: min-content;
+    height: 60%;
+    border-radius: 5px;
+    background: rgb(255 255 228 / 22%);
+    box-shadow: 1px 1px 15px #5f6157;
+  }
+
+/*****************REGISTER********************/
+
+.registerPage{
+    background-image: linear-gradient(275deg, #ffe9b7 0, #ffebb6 7.14%, #f9eeb7 14.29%, #f2f0b8 21.43%, #eaf2ba 28.57%, #e2f4bd 35.71%, #dbf5c1 42.86%, #d3f7c6 50%, #cbf8cb 57.14%, #c4fad1 64.29%, #bdfbd7 71.43%, #b6fbde 78.57%, #b0fce5 85.71%, #aafcec 92.86%, #a6fcf3 100%);
+    width: 100%;
+    height: 100%;
+}
+
+#containerReg{
+    margin-top: 2em!important;
+    top: 30px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 71%;
+    min-width: min-content;
+    height: 98%;
+    border-radius: 5px;
+    background: rgb(255 255 228 / 97%);
+    box-shadow: 1px 1px 15px #5f6157;
+  }
+
+  .register{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+    margin-top: 8px;
+    font-size: 15px;
+}
+
+  .registerBody{
+      display: grid;
+     
+  }
+
+
+  .registerText{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: large;
+    padding: 4em;
+    text-align: center;
+    align-items: center;
+  }
+
+/*******************INDEX********************/
+
+.intro{
+    overflow-x: hidden;
+    margin-top: 1.7em;
+    padding: 1em;
+    background-image: url(https://ak.picdn.net/shutterstock/videos/1031936000/thumb/8.jpg?ip=x480);
+    width: auto;
+    text-align: center;
+    color: white;
+}
+/*************POPUP*************************/
+.overlay { 
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: max-content;
+    min-height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .overlay:target{
+    visibility: visible;
+    opacity: 1;
+  }
+
+  #popupBody{
+    width: 46%;
+    padding: 2%;
+    border-radius: 15px;
+    box-shadow: 0 0 5px #CCC;
+    background: #FFF;
+    position: relative;
+    margin: 10% auto;
+    transition: all 2s ease-in-out;
+  }
+
+  #cerrar{
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #F00;
+    transition: all 200ms;
+}
+
+/****************RESULTADO******************/
+.result{
+    display: grid;
+}
+
+.resultaside{
+    background-image: url(https://thumbs.dreamstime.com/b/fondo-azul-abstracto-de-azul-marino-elegante-30802629.jpg);
+    height: 100vh;
+    border-width: 1px;
+    border-radius: 5;
+    color: white;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-right: 1px solid #718a6d; 
+}
+.formFilter{
+    padding: 0.5em;
+}
+.form-control{
+    margin-bottom:9px
+}
+.form-label{
+    font-size: large;
+}
+
+.li{
+    display: flex;
+    justify-content: space-between;
+    font-size: large;
+    padding: 0px;
+    margin: 0px;
+    align-items: center;
+    flex-direction: row;
+}
+
+.lis{
+    font-size: medium;
+}
+.accordion-button{
+    display: initial!important;
+}
+.table{
+    font-size: medium;
+}
+
 
 /*******************GAME********************/
 #temporizador{
@@ -64,48 +277,32 @@ body{
     text-align: center;
 }
 
-nav{
-    margin: 0px;
-    display: flex;
-    padding-left: 9px;
-    font-size: large;
-    font-family:cursive;
-    justify-content: space-between;
-    background-color:  rgba(0,0,0,0.3);
+.card{
+    margin: 2em!important;
+    width: 90%!important;
+    border-radius: 20px;
+    background-color: white!important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 3px 4px rgb(0 0 0 / 34%); 
+    position: initial!important;
 }
-
-#btn-nav{ 
-    width:15%;
-    margin: 4px;
-    font-size: 15px; 
-    text-align: center;
-    text-decoration: none;
-    color: #000000; 
-    background-color: #fffaac;
-    border: 1px solid #718a6d; 
-    border-radius: 4px;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.4); 
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5); 
+a{
+    text-decoration: none !important;
+    color: black !important;
 }
-  nav h1{
-      margin: 0px;
-      padding: 0px;
-  }
-
-  #btn-nav:hover, .btn-primary:hover { 
-    cursor: pointer;  
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    background-color: #4c00ff; 
-  }
+.card-text{
+    font-size: medium;
+}
 
 #game {
     display: grid;
-    grid-template-rows: 5% 95%;
+    grid-template-rows: 7,4% 92,6%;
     width: 100%;
     height: 100%;
     margin: 0px;
     padding: 0px;
 }
+
+
 /* Canvas characteristics */
 #canvas{
     overflow: hidden;
@@ -228,8 +425,14 @@ nav{
     background-color: rgb(40, 40, 40);
     border: 5px solid cyan;
 }
-#message{
-    padding: 1vmax;
+#messageMal{
+    background-color: #f72c2cbf;
+    padding: 5px;
+    margin: 9px;
+    border-radius: 10px;
+    color: white;
+    background-color: #f72c2cbf;
+    font-family: unset;
 }
 #blankedMessage{
     opacity: 0;
@@ -241,15 +444,27 @@ div{
     font-size: calc(14px + 1vw);
 }
 
+/**********************RESULTADOS******************/
+
+/*****************COLOCACIÓN***************************/
 /* Portrait and Landscape changes */
 @media (orientation: landscape) {
-
+    .registerBody{
+        grid-template-columns: 40% 60%;
+    }
     #canvas{
         grid-template-rows: 55% 45%;
     }
     #answers{
         grid-template-columns: 50% 50%;
         grid-template-rows: 50% 50%;
+    }
+    .result{
+        grid-template-columns: 25% 75%;
+    }
+    .resultPortrait{
+        visibility: hidden;
+        height: 0px;
     }
 }
 @media (orientation: Portrait) {
@@ -259,5 +474,33 @@ div{
     #answers{
         grid-template-columns: 100%;
         grid-template-rows: 25% 25% 25% 25%;
+    }
+    #container{
+        width: 81%;
+    }
+    .registerPage{
+        height: 120%;
+    }
+    .registerBody{
+        grid-template-rows: 80% 20%;
+    }
+    .registerText{
+        padding: 2em;
+    }
+    #containerReg {
+        width: 81%;
+    }
+    .result{
+        display: unset;
+        font-size: small;
+        visibility: visible;
+    }
+    .resultaside{
+        visibility: hidden;
+        width: 0px;
+        height: 0px;
+    }
+    .m-5{
+        margin: 3px !important;
     }
 }

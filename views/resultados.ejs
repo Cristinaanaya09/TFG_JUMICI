@@ -1,0 +1,192 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<section style="overflow-x: hidden; height: inherit;">
+  <nav class="loginNav">
+    <h1>JUMICI <img src=./images/app/icon.png height="29"></h1>
+    <div>
+      <a href="/index" class="btn btn-outline-dark btn-nav">Escenas</a>
+      <a href="/logout" class="btn btn-outline-dark btn-nav">Log out</a>
+    </div>
+  </nav>
+
+<div class="resultPortrait">
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+          aria-expanded="true" aria-controls="collapseOne">
+            <b>FILTER</b>
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+        data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <form class="formFilter" action="/filter" method="post">
+           
+            <label for="exampleDataList" class="form-label">Scene Name</label>
+            <input class="form-control" list="scenelistOptions" id="exampleDataList" name="scene" placeholder="Scene Name">
+            <datalist id="scenelistOptions">
+              <% for ( let scene of escenas) {%>
+                <option value="<%=scene.name%>">
+                  <%}%>
+            </datalist>
+            <label for="exampleDataList" class="form-label">Username</label>
+            <input class="form-control" list="userlistOptions" id="exampleDataList" name="user" placeholder="Username">
+            <datalist id="userlistOptions">
+              <% for ( let user of users) {%>
+                <option value="<%=user.name%>">
+                  <%}%>
+            </datalist>
+            <label for="exampleDataList" class="form-label">Date</label>
+            <input class="form-control" list="datelistOptions" id="exampleDataList" name="date" placeholder="Date">
+            <datalist id="datelistOptions">
+              <% for ( let respuesta of lista) {%>
+                <option value="<%=respuesta.date%>">
+                  <%}%>
+            </datalist>
+            <button type="submit" class="btn btn-primary mb-3">Filter</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="result">
+    <aside class="resultaside">
+      <form class="formFilter" action="/filter" method="post">
+        <p><b>FILTER</b></p>
+        <label for="exampleDataList" class="form-label">Scene Name</label>
+        <input class="form-control" list="scenelistOptions" id="exampleDataList" name="scene" placeholder="Scene Name">
+        <datalist id="scenelistOptions">
+          <% for ( let scene of escenas) {%>
+            <option value="<%=scene.name%>">
+              <%}%>
+        </datalist>
+        <label for="exampleDataList" class="form-label">Username</label>
+        <input class="form-control" list="userlistOptions" id="exampleDataList" name="user" placeholder="Username">
+        <datalist id="userlistOptions">
+          <% for ( let user of users) {%>
+            <option value="<%=user.name%>">
+              <%}%>
+        </datalist>
+        <label for="exampleDataList" class="form-label">Date</label>
+        <input class="form-control" list="datelistOptions" id="exampleDataList" name="date" placeholder="Date">
+        <datalist id="datelistOptions">
+          <% for ( let respuesta of lista) {%>
+            <option value="<%=respuesta.date%>">
+              <%}%>
+        </datalist>
+        <button type="submit" class="btn btn-primary mb-3">Filter</button>
+      </form>
+    </aside>
+
+    <div class="m-5">
+      <div class="alert alert-primary" role="alert">
+        <ul class="li">
+          <p class="li">Name</p>
+          <p class="li">Email</p>
+          <p class="li">Correct Answers</p>
+          <p class="li"></p>
+        </ul>
+      </div>
+      <div class="accordion" id="myAccordion">
+        <% for ( let user of users) {%>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#collapseOne">
+                <ul class="li">
+                  <div class="lis">
+                    <%=user.name%>
+                  </div>
+                  <div class="lis">
+                    <%=user.email%>
+                  </div>
+                  <div class="li"></div>
+                  <div class="li"></div>
+                  <img src=https://cdn-icons-png.flaticon.com/512/32/32195.png width="26" height="15"
+                    class="float-end p-y-3"></img>
+                </ul>
+
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse">
+              <% for ( let scene of escenas) {%>
+                <%for ( let correct of corrects) {%>
+                  <% if ( correct.user===user.id) {%>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingOne">
+                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                          data-bs-target="#collapseOne" style="background-color: #0c0827; color: white;">
+                          <ul class="li">
+                            <div class="lis">
+                              <%=scene.name%>
+                            </div>
+                            <div class="li"></div>
+                            <div class="li">
+                              <%=correct.total%>/<%=lista.length%>
+                            </div>
+                            <img src=https://cdn-icons-png.flaticon.com/512/32/32195.png width="26" height="15"
+                              class="float-end p-y-3"></img>
+                          </ul>
+
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse">
+                        <div class="card-body">
+                          <table class="table table-striped table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Question</th>
+                                <th scope="col">Answer</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Correct</th>
+
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% for ( let respuesta of lista) {%>
+                                <% if (respuesta.username===user.name) {%>
+                                  <tr>
+
+                                    <th scope="row">
+                                      <%=respuesta.date%>
+                                    </th>
+                                    <td>
+                                      <%=respuesta.pregunta%>
+                                    </td>
+                                    <td>
+                                      <%=respuesta.respuesta%>
+                                    </td>
+                                    <td>
+                                      <%=respuesta.time%>
+                                    </td>
+                                    <%if(respuesta.correct){%>
+                                      <td><img src=https://www.pngmart.com/files/3/Green-Tick-Transparent-PNG.png
+                                          height=10%>
+                                      </td>
+                                      <% }else {%>
+                                        <td><img
+                                            src=https://starpng.com/public/uploads/preview/cross-png-cross-png-101576822774gb15sk8uvv.png
+                                            height=10%></td>
+                                        <%}%>
+                                  </tr>
+                                  <%}%>
+                                    <%}%>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <%}%>
+                      <%}%>
+                        <%}%>
+            </div>
+            <%}%>
+          </div>
+      </div>
+    </div>
+
+
+</section>

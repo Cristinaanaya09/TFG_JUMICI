@@ -1,3 +1,6 @@
+<script src="./JUMICI/scene_class.js"></script>
+<script src="./JUMICI/actions.js"></script>
+<script src="./JUMICI/main_controller.js"></script>
 <script type="text/javascript">
     segundos = 0;
     minutos = 0;
@@ -40,7 +43,10 @@
     <nav class="loginNav">
         <h1>WELCOME TO JUMICI</h1>
         <div id="temporizador"></div>
-        <a href="/logout" class="btn-primary" id="btn-nav">Log out</a>
+        <div>
+        <a href="/index" class="btn btn-outline-dark btn-nav">Escenas</a>
+        <a href="/logout" class="btn btn-outline-dark btn-nav">Log out</a>
+        </div>
     </nav>
     <div id="canvas">
         <!-- Dialog View -->
@@ -57,16 +63,10 @@
         <div id="test" class='out'>
             <div id="question"></div>
             <div id="answers">
-                <form method="post">
-                    <button id="button-A" class="test-button">A) <div id="text-A" class="small-text" name="button"></div>
-                    </button>
-                    <button id="button-B" class="test-button">B) <div id="text-B" class="small-text" name="button"></div>
-                    </button>
-                    <button id="button-C" class="test-button">C) <div id="text-C" class="small-text" name="button"></div>
-                    </button>
-                    <button id="button-D" class="test-button">D) <div id="text-D" class="small-text" name="button"></div>
-                    </button>
-                </form>
+                <div id="button-A" class="test-button">A) <div id="text-A" class="small-text"></div></div>
+                <div id="button-B" class="test-button">B) <div id="text-B" class="small-text"></div></div>
+                <div id="button-C" class="test-button">C) <div id="text-C" class="small-text"></div></div>
+                <div id="button-D" class="test-button">D) <div id="text-D" class="small-text"></div></div>
             </div>
         </div>
 
