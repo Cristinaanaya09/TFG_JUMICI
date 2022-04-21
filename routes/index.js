@@ -3,6 +3,7 @@ var router = express.Router();
 const seguirController = require("../controllers/seguirAlumno");
 const resultController = require("../controllers/resultados");
 const indexController = require("../controllers/index");
+const gameController = require("../controllers/game");
 const passport = require('passport');
 const { models } = require('../models');
 const {isNotLoggedIn, isLoggedIn, isAdmin} = require('../controllers/link')
@@ -61,6 +62,7 @@ router.get('/logout', isLoggedIn, function (req, res, next) {
   req.logOut();
   res.redirect('/');
 })
+
 /////////////////////////INDEX/////////////////////////////
 
 router.get('/index', isLoggedIn, indexController.index);
@@ -81,12 +83,9 @@ router.post('/final', isLoggedIn, seguirController.final);
 router.get('/resultados', isLoggedIn, isAdmin, resultController.resultados);
 
 
-router.get('/game', isLoggedIn, function (req, res, next) {
-  res.render('game');
-}
-);
+router.get('/game/:json', isLoggedIn, gameController.game);
 
-router.post('/game', seguirController.seguimiento);
+router.post('/game/:sceneId(\\d+)', seguirController.seguimiento);
 
 router.post('/answers', seguirController.answers);
 

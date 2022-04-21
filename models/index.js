@@ -40,6 +40,7 @@ class Scene extends Model {}
 Scene.init(
   { 
     name: DataTypes.STRING,
+    json: DataTypes.STRING,
     rutaImage: DataTypes.STRING,
     descripcion: DataTypes.STRING,
   }, 

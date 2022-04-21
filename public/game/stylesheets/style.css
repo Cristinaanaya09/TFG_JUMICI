@@ -1,0 +1,506 @@
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+nav{
+    margin: 0px;
+    display: flex;
+    padding-left: 9px;
+    font-size: large;
+    font-family:sans-serif;
+    justify-content: space-between;
+    /*background-color: rgb(255 177 0 / 82%)*/
+    background-color:rgb(12 8 39)
+
+}
+.btn-nav{
+    color: white!important;
+    margin: 4px;
+}
+
+.btn-nav:hover{
+    background-color: white!important;
+    color: rgb(12 8 39) !important;
+}
+
+
+#btn-nav{ 
+    width:15%;
+    margin: 4px;
+    font-size: 15px; 
+    text-align: center;
+    text-decoration: none;
+    color: #000000; 
+    background-color: #fffaac;
+    border: 1px solid #718a6d; 
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5); 
+}
+  nav h1{
+      margin: 0px;
+      padding: 0px;
+      font-size: x-large;
+      display: flex;
+      color: white;
+    align-items: center;
+  }
+
+  #btn-nav:hover, .btn-primary:hover { 
+    cursor: pointer;  
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #4c00ff; 
+  }
+
+
+/*************************LOGIN***************************/
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginBody{
+    background-image: linear-gradient(275deg, #ffe9b7 0, #ffebb6 7.14%, #f9eeb7 14.29%, #f2f0b8 21.43%, #eaf2ba 28.57%, #e2f4bd 35.71%, #dbf5c1 42.86%, #d3f7c6 50%, #cbf8cb 57.14%, #c4fad1 64.29%, #bdfbd7 71.43%, #b6fbde 78.57%, #b0fce5 85.71%, #aafcec 92.86%, #a6fcf3 100%);
+    width: 100%;
+    height: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.usuario{
+    margin: 5px;
+    padding: 6px;
+    background-color: #ffffff00;
+    border-radius: 4px;
+    box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
+    border-color: #181f1b;
+    font-size: medium;
+}
+
+.btn-login{
+    background-color: #718a6d;
+    color: white;
+}
+
+#title{
+    font-family:Arial, Helvetica, sans-serif ;
+    font-size: medium;
+    width: 65%; 
+    padding: 10px;
+    text-align: center;
+}
+
+#container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 31%;
+    min-width: min-content;
+    height: 60%;
+    border-radius: 5px;
+    background: rgb(255 255 228 / 22%);
+    box-shadow: 1px 1px 15px #5f6157;
+  }
+
+/*****************REGISTER********************/
+
+.registerPage{
+    background-image: linear-gradient(275deg, #ffe9b7 0, #ffebb6 7.14%, #f9eeb7 14.29%, #f2f0b8 21.43%, #eaf2ba 28.57%, #e2f4bd 35.71%, #dbf5c1 42.86%, #d3f7c6 50%, #cbf8cb 57.14%, #c4fad1 64.29%, #bdfbd7 71.43%, #b6fbde 78.57%, #b0fce5 85.71%, #aafcec 92.86%, #a6fcf3 100%);
+    width: 100%;
+    height: 100%;
+}
+
+#containerReg{
+    margin-top: 2em!important;
+    top: 30px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 71%;
+    min-width: min-content;
+    height: 98%;
+    border-radius: 5px;
+    background: rgb(255 255 228 / 97%);
+    box-shadow: 1px 1px 15px #5f6157;
+  }
+
+  .register{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+    margin-top: 8px;
+    font-size: 15px;
+}
+
+  .registerBody{
+      display: grid;
+     
+  }
+
+
+  .registerText{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: large;
+    padding: 4em;
+    text-align: center;
+    align-items: center;
+  }
+
+/*******************INDEX********************/
+
+.intro{
+    overflow-x: hidden;
+    margin-top: 1.7em;
+    padding: 1em;
+    background-image: url(https://ak.picdn.net/shutterstock/videos/1031936000/thumb/8.jpg?ip=x480);
+    width: auto;
+    text-align: center;
+    color: white;
+}
+/*************POPUP*************************/
+.overlay { 
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: max-content;
+    min-height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .overlay:target{
+    visibility: visible;
+    opacity: 1;
+  }
+
+  #popupBody{
+    width: 46%;
+    padding: 2%;
+    border-radius: 15px;
+    box-shadow: 0 0 5px #CCC;
+    background: #FFF;
+    position: relative;
+    margin: 10% auto;
+    transition: all 2s ease-in-out;
+  }
+
+  #cerrar{
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #F00;
+    transition: all 200ms;
+}
+
+/****************RESULTADO******************/
+.result{
+    display: grid;
+}
+
+.resultaside{
+    background-image: url(https://thumbs.dreamstime.com/b/fondo-azul-abstracto-de-azul-marino-elegante-30802629.jpg);
+    height: 100vh;
+    border-width: 1px;
+    border-radius: 5;
+    color: white;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-right: 1px solid #718a6d; 
+}
+.formFilter{
+    padding: 0.5em;
+}
+.form-control{
+    margin-bottom:9px
+}
+.form-label{
+    font-size: large;
+}
+
+.li{
+    display: flex;
+    justify-content: space-between;
+    font-size: large;
+    padding: 0px;
+    margin: 0px;
+    align-items: center;
+    flex-direction: row;
+}
+
+.lis{
+    font-size: medium;
+}
+.accordion-button{
+    display: initial!important;
+}
+.table{
+    font-size: medium;
+}
+
+
+/*******************GAME********************/
+#temporizador{
+    margin: 4px;
+    padding: 1px;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 17px;
+    color: white;
+    text-align: center;
+}
+
+.card{
+    margin: 2em!important;
+    width: 90%!important;
+    border-radius: 20px;
+    background-color: white!important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 3px 4px rgb(0 0 0 / 34%); 
+    position: initial!important;
+}
+a{
+    text-decoration: none !important;
+    color: black !important;
+}
+.card-text{
+    font-size: medium;
+}
+
+#game {
+    display: grid;
+    grid-template-rows: 7,4% 92,6%;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+/* Canvas characteristics */
+#canvas{
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 4% 44% 4% 44% 4%;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(60,60,60);
+}
+/* DIALOG VIEW */
+/* Character characteristics and position for animations*/
+.character{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    transition: right 1s,opacity 0.75s;
+    position: relative;
+    right: 0;
+}
+/* Left character */
+#left{
+    user-select: none;
+    grid-column: 2/span 1;
+    grid-row: 1;
+}
+/* Right character */
+#right{
+    user-select: none;
+    grid-column: 4/span 1;
+    grid-row: 1;
+}
+/* Out and Center positions and opacity for both characters*/
+.out#left{right: 48vw; opacity: 0;}
+.out#right{right: -48vw; opacity: 0;}
+.center#left{right: -50%;}
+.center#right{right: 50%;}
+/*Image related characteristics*/
+.character img{
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* Background characteristics */
+#background{
+    opacity:0;
+    transition: opacity 1s;
+    grid-column: 1/13;
+    grid-row: 1/span 1; 
+    background-color: rgb(60,60,60);
+}
+#background img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* Dialog box characteristics */
+#dialog{
+    position: relative;
+    top: 0%;
+    transition: top 1s,opacity 0.75s;
+    color: white;
+    text-align: justify;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    grid-column: 1/6;
+    grid-row: 2;
+    background-color: rgb(20, 20, 20);
+    margin: 20px;
+    padding: 2%;
+}
+.out#dialog{top: 100%; opacity: 0;}
+
+/* TEST VIEW */
+/* Test caracteristics */
+#test{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 0%;
+    transition: top 1s,opacity 0.75s;
+    box-sizing: border-box;
+    color: white;
+    text-align: justify;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    grid-column: 1/6;
+    grid-row: 1/3;
+    background-color: rgb(20, 20, 20);
+    margin: 20px;
+    padding: 2%;
+}
+.out#test{top: 100%; opacity: 0;}
+#answers{
+    display: grid;
+    height: 100%;
+}
+#question{
+    padding: 1%;
+}
+.test-button{
+    display: flex;
+    color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgb(20, 20, 20);
+    border: 5px solid rgb(40, 40, 40);
+    margin: 2%;
+    padding: 2%;
+}
+.test-button:hover{
+    background-color: rgb(30, 30, 30);
+    border: 5px solid rgb(0, 140, 140);
+}
+.test-button:active{
+    background-color: rgb(40, 40, 40);
+    border: 5px solid cyan;
+}
+#messageMal{
+    background-color: #f72c2cbf;
+    padding: 5px;
+    margin: 9px;
+    border-radius: 10px;
+    color: white;
+    background-color: #f72c2cbf;
+    font-family: unset;
+}
+#blankedMessage{
+    opacity: 0;
+}
+.small-text{
+    font-size: calc(10px + 1vw);
+}
+div{
+    font-size: calc(14px + 1vw);
+}
+
+/**********************RESULTADOS******************/
+
+/*****************COLOCACIÓN***************************/
+/* Portrait and Landscape changes */
+@media (orientation: landscape) {
+    .registerBody{
+        grid-template-columns: 40% 60%;
+    }
+    #canvas{
+        grid-template-rows: 55% 45%;
+    }
+    #answers{
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 50% 50%;
+    }
+    .result{
+        grid-template-columns: 25% 75%;
+    }
+    .resultPortrait{
+        visibility: hidden;
+        height: 0px;
+    }
+}
+@media (orientation: Portrait) {
+    #canvas{
+        grid-template-rows: 30% 70%;
+    }
+    #answers{
+        grid-template-columns: 100%;
+        grid-template-rows: 25% 25% 25% 25%;
+    }
+    #container{
+        width: 81%;
+    }
+    .registerPage{
+        height: 120%;
+    }
+    .registerBody{
+        grid-template-rows: 80% 20%;
+    }
+    .registerText{
+        padding: 2em;
+    }
+    #containerReg {
+        width: 81%;
+    }
+    .result{
+        display: unset;
+        font-size: small;
+        visibility: visible;
+    }
+    .resultaside{
+        visibility: hidden;
+        width: 0px;
+        height: 0px;
+    }
+    .m-5{
+        margin: 3px !important;
+    }
+}

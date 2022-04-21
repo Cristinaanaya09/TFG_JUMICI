@@ -46,6 +46,8 @@ app.use(function(req, res, next) {
 app.use((req, res, next)=>{
   app.locals.success = req.flash('success');
   app.locals.message = req.flash('message');
+  app.locals.success = req.flash('success');
+  app.locals.load = null;
   next();
 });
 

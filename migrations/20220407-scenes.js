@@ -17,6 +17,10 @@ module.exports = {
           type: Sequelize.STRING,
           unique: true
         },
+        json: {
+          type: Sequelize.STRING,
+          unique: true
+        },
         rutaImage: {
           type: Sequelize.STRING,
           unique: false
