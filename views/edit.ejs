@@ -1,0 +1,187 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<div>
+    <nav class="fixed-top loginNav">
+        <h1>JUMICI <img src=./images/app/icon.png height="29"></h1>
+        <div>
+            <a href="/index" class="btn btn-outline-dark btn-nav">Escenas</a>
+            <a href="/logout" class="btn btn-outline-dark btn-nav">Log out</a>
+        </div>
+    </nav>
+
+    <div class="editBody">
+
+        <div class="initial">
+            <p style="text-align: center; font-size: large;"><b>EDIT GAME:</b></p>
+            Here you can edit the created game. You also have to decide here the correct answers of the game.
+        </div>
+
+        <div class="editCard">
+            <!------------------------CARD GAME --------------------------->
+            <div class="card" style="min-width: fit-content; margin: 1em; color: black;">
+
+                <img src=<%=scene.rutaImage ? scene.rutaImage : "/images/app/ciberseguridad.jpg" %>
+                class="card-img-top" >
+
+                <div class="card-body">
+                    <h5 class="card-title"><b>
+                            <%=scene.name%>
+                        </b></h5>
+                    <p class="card-text">
+                        <%=scene.descripcion%>
+                    </p>
+                </div>
+            </div>
+
+            <!------------------------CARD GAME POPUP--------------------------->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true" style="color: black;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                <%=scene.name %>
+                            </h5>
+
+                        </div>
+                        <form action="/edit/<%= scene.id%>" method="post">
+                            <div class="modal-body">
+                                <p style="font-size: x-large;"><b>Edit Scene</b></p>
+                                <div class="mb-3">
+                                    <label for="recipient-name" class="col-form-label">Name (*):</label>
+                                    <input type="text" name="name" class="form-control" id="recipient-name"
+                                        value=<%=scene.name %>>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleDataList" class="form-label"
+                                        style="font-size: medium; margin-top: 5px; margin-bottom: 0px;">Image</label>
+                                    <input class="form-control" name="image" list="datalistOptions" id="exampleDataList"
+                                        placeholder="Type to search...">
+                                    <datalist id="datalistOptions">
+                                        <% for (let image of images){ %>
+                                            <option value="/images/app/<%=image%>">
+                                                <% } %>
+                                    </datalist>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label">Description (*):</label>
+                                    <textarea class="form-control textarea" id="message-text"
+                                        name="description"></textarea>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Edit</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div
+                style="margin: 2em; background-color: rgb(12 8 39); border-radius: 8px; color: white; padding: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+
+                <p>The game card shows the name, a photo, and a description of the game. </p>
+                <p>To edit the game card click on the following button. </p>
+                <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 2px; height:  2.5em; width: 40%;" >Edit</button>
+                <p style="margin-top: 1rem;">The fields that contain a (*) cannot be left empty, they are mandatory to fill in. In addition, you cannot put a name that
+                    already corresponds to another scene. </p>
+
+            </div>
+        </div>
+
+
+        <!------------------------QUESTIONS AND ANSWERS--------------------------->
+        <div style="margin: 1em; overflow-x: hidden;">
+            <div class="correctAnswers">
+                Here are the game questions with their different options. For each question you can select the correct answer and hit the "save" button, in this way the correct answers will be saved.
+            </div>
+            <p>
+
+                <% for(let i=0; i < json.sceneArray.length; i++) { %>
+                    <% if(json.sceneArray[i].test!==undefined) { %>
+                        <div style="font-size: x-large;">Scene <%=i %>: </div>
+                        <% for(let j=0; j < json.sceneArray[0].test.length; j++) { %>
+                            <form action="/answers/<%=scene.json%>" method="post" style="margin:1em">
+                                <p>
+                                    <b>
+                                        <%=json.sceneArray[i].test[j].question%>
+                                    </b>
+                                </p>
+                                <p>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="answer" value="A"
+                                        id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        <%=json.sceneArray[i].test[j].a%>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="answer" value="B"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        <%=json.sceneArray[i].test[j].b%>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="answer" value="C"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        <%=json.sceneArray[i].test[j].c%>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="answer" value="D"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        <%=json.sceneArray[i].test[j].d%>
+                                    </label>
+                                </div>
+            </p>
+            <button type="submit" class="m-1 btn btn-outline-info">Save</button>
+            </form>
+            <%}%>
+                <%}%>
+                    <%}%>
+
+                        </p>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+</div>
+
+
+<script>
+
+    var exampleModal = document.getElementById('exampleModal')
+    exampleModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        var recipient = button.getAttribute('data-bs-whatever')
+        // If necessary, you could initiate an AJAX request here
+        // and then do the updating in a callback.
+        //
+        // Update the modal's content.
+        var modalTitle = exampleModal.querySelector('.modal-title')
+        var modalBodyInput = exampleModal.querySelector('.modal-body input')
+        var modalBodyText = exampleModal.querySelector('.textarea')
+
+        modalBodyText.value = "<%=scene.descripcion %>";
+    })
+</script>

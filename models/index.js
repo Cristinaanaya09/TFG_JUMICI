@@ -27,6 +27,7 @@ class UserAnswer extends Model {}
 UserAnswer.init(
   { 
     user: DataTypes.INTEGER,
+    game: DataTypes.INTEGER,
     scene: DataTypes.INTEGER,
     question: DataTypes.INTEGER,
     answer: DataTypes.STRING,
@@ -49,7 +50,8 @@ Scene.init(
 
 class Answer extends Model {}
 Answer.init(
-  { scene: DataTypes.INTEGER,
+  { game: DataTypes.INTEGER,
+    scene: DataTypes.INTEGER,
     question: DataTypes.INTEGER,
     answer: DataTypes.INTEGER,
   }, 

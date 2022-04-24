@@ -13,6 +13,16 @@ module.exports = {
           autoIncrement: true,
           unique: true
         },
+        game:{
+          type: Sequelize.INTEGER,
+          foreignKey: true,
+          references: {
+            model: "Scenes",
+            key: "id"
+          },
+          onUpdate: 'CASCADE',
+          allowNull: false,
+        },
         scene: {
           type: Sequelize.STRING,
           unique: false

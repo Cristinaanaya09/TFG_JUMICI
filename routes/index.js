@@ -68,6 +68,9 @@ router.get('/logout', isLoggedIn, function (req, res, next) {
 router.get('/index', isLoggedIn, indexController.index);
 router.post('/index', isLoggedIn, isAdmin, indexController.crear);
 router.get('/delete/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.delete);
+router.get('/kkk/:json', isLoggedIn, isAdmin, indexController.kkk);
+router.get('/createShow', isLoggedIn, isAdmin, indexController.createShow);
+router.get('/edit/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.showEdit);
 router.post('/edit/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.edit);
 
 /////////////////////////RESULTADOS/////////////////////////////
@@ -85,8 +88,8 @@ router.get('/resultados', isLoggedIn, isAdmin, resultController.resultados);
 
 router.get('/game/:json', isLoggedIn, gameController.game);
 
-router.post('/game/:sceneId(\\d+)', seguirController.seguimiento);
+router.post('/game/:json', seguirController.seguimiento);
 
-router.post('/answers', seguirController.answers);
+router.post('/answers/:json', seguirController.answers);
 
 module.exports = router;

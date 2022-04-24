@@ -10,14 +10,16 @@ exports.seguimiento = async (req, res, next) => {
                                                             question: parseInt(req.body.testNumber),
                                                         } });
         console.log("Existe respCORRECTA: " + correctAnswer)
-        console.log("param: " + req.params.sceneId)
-        console.log("escenaaa: " + req.load.scene.id)
+        let scene = await models.Scene.findOne({ where: {json: req.params.json}});
+       
+        console.log("IDESCENA: " + req.params.json)
         if(correctAnswer!==null)
             if (correctAnswer.answer === req.body.id)
                 correct = 1;
     console.log("correcto: " + correct)
         let respuesta = {
-            scene: req.load.scene.id,
+            game: scene.id,
+            scene: req.body.sceneNumber,
             user: req.user.id,
             question: parseInt(req.body.testNumber),
             answer: req.body.id,
@@ -50,13 +52,16 @@ exports.escenas = async (req, res, next) => {
 
 exports.answers = async (req, res, next) => {
     try {
-        /*console.log("respuuuuuuu")
+        let game = await models.Scene.findOne({where:{json: req.params.json}})
+        console.log("respuuuuuuu")
+        console.log("resp: " + req.body.answer)
         let correctAnswer = {
+            game: game,
             scene: 0,
             question: 0,
-            answer: 'B',
+            answer: req.body.answer,
         }
-        await models.Answer.create(correctAnswer);*/
+        await models.Answer.create(correctAnswer);
         res.end();
     } catch (e) {
         console.log("ERROR: " + e)

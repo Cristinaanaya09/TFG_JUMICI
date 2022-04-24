@@ -1,4 +1,3 @@
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <div style="overflow-x: hidden; display: block;">
@@ -11,6 +10,7 @@
                     <a href="/logout" class="btn btn btn-outline-light btn-nav">Log out</a>
         </div>
     </nav>
+    <!------------------------INTRO--------------------------->
     <section class="intro">
         <h1 style="font-size: xx-large;">WELCOME TO JUMICI!</h1>
         <p style="font-size: large;">
@@ -18,165 +18,116 @@
             more fun and dynamic way. Here you can select the scene you want to play.</p>
     </section>
 
-    <%if (admin) {%>
-        <a href="#popup" class="m-1 btn btn-outline-info" id="liveToastBtn"
-            style="float: right; color: blue;">Create</a>
+    <div style="min-height: 1.3em;">
+        <%if (admin) {%>
 
-        <div id="popup" class="overlay">
-            <div id="popupBody">
-                <h2>Create Scene</h2>
-                <a id="cerrar" href="#">&times;</a>
-                <div class="popupContent" style="font-size: medium;">
-                    <form action="/index" method="post">
-                        Name's scene (*):
-                        <input class="form-control" type="text" name="name" placeholder="Scene"
-                            aria-label="default input example" required="required">
-                        <div class="form-floating">
-                            <select class="form-select" name="json" id="floatingSelect"
-                                aria-label="Floating label select example">
-                                <% for (let filename of filenames){ %>
-                                    <option selected>
-                                        <%=filename %>
-                                    </option>
-                                    <% } %>
-                            </select>
-                            <label for="floatingSelect" style="font-size: medium;">JSON Files</label>
+            <a href="/createShow" class="m-1 btn btn-outline-info">Create</a>
+
+
+
+            <!------------------------CREATE GAME--------------------------->
+            <a href="#popup" class="m-1 btn btn-outline-info" id="liveToastBtn"
+                style="float: right; color: blue;">Create</a>
+
+            <!----CREATE GAME POPUP------->
+            <div id="popup" class="overlay">
+                <div id="popupBody">
+
+                    <h2>Create Scene</h2>
+                    <a id="cerrar" href="#">&times;</a>
+                    <div class="popupContent" style="font-size: medium;">
+                        <div
+                            style="font-size: small; margin: 1em; padding:1em; border-radius: 6px; background-color: rgb(57, 96, 97); color: white; min-width: fit-content;">
+                            Here you will create a new game. You need to choose the JSON file of the game. (*) means
+                            that it is obligatory to fill.
                         </div>
-                        <p>Image:
-                            <input class="form-control" type="text" name="image" placeholder="Image"
-                                aria-label="default input example">
-                        </p>
-                        Description (*):
-                        <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"
-                            required="required"></textarea>
+                        <form action="/index" method="post">
+                            Name's scene (*):
+                            <input class="form-control" type="text" name="name" placeholder="Scene"
+                                aria-label="default input example" required="required">
+                            <div class="form-floating">
+                                <select class="form-select" name="json" id="floatingSelect"
+                                    aria-label="Floating label select example">
+                                    <% for (let filename of filenames){ %>
+                                        <option selected>
+                                            <%=filename %>
+                                        </option>
+                                        <% } %>
+                                </select>
+                                <label for="floatingSelect" style="font-size: medium;">JSON Files</label>
+                            </div>
+                            <p>
+                                <label for="exampleDataList" class="form-label"
+                                    style="font-size: medium; margin-top: 5px; margin-bottom: 0px;">Image</label>
+                                <input class="form-control" name="image" list="datalistOptions" id="exampleDataList"
+                                    placeholder="Type to search...">
+                                <datalist id="datalistOptions">
+                                    <% for (let image of images){ %>
+                                        <option value="/images/app/<%=image%>">
+                                            <% } %>
+                                </datalist>
+                            </p>
+                            Description (*):
+                            <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"
+                                required="required"></textarea>
 
-                        <button type="submit" class="m-1 btn btn-outline-info" id="liveToastBtn"
-                            style="float: right;">Create</button>
-                    </form>
+                            <button type="submit" class="m-1 btn btn-outline-info" id="liveToastBtn"
+                                style="float: right;">Create</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
 
-
-
-
-
-        <div id="iniciateScene" class="m-1 btn btn-outline-info"  style="float: right; color: blue;">Iniciate
-            Scene
-        </div>
-
-
-        <%}%>
-
-            <div class="row row-cols-1 row-cols-md-3 g-4" style="overflow-x: hidden">
-                <% for ( let escena of escenas) { %>
-                    <div class="col">
-                        <div class="card">
-                            <a href="./game/<%=escena.json %>">
-                                <img src=<%=escena.rutaImage ? escena.rutaImage : "/images/app/ciberseguridad.jpg" %>
-                                class="card-img-top" >
-                            </a>
-                            <div class="card-body">
-                                <h5 class="card-title"><b>
-                                        <%=escena.name%>
-                                    </b></h5>
-                                <p class="card-text">
-                                    <%=escena.descripcion%>
-                                </p>
-                                <%if (admin) {%>
-                                    <div
-                                        style="z-index:1000; display: flex; flex-direction: row; justify-content: space-evenly;">
-                                        <button type="button" class="btn btn-outline-primary"
-                                            style="margin: 2px; height:  2.5em">Results</button>
-
-                                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                            style="margin: 2px; height:  2.5em">Edit</button>
-
-                                        <form action="/delete/<%=escena.id%>">
-                                            <button type="submit" class="btn btn-outline-primary"
-                                                style="margin: 2px; color: red; border-color: red; height: 2.5em">Delete</button>
-                                        </form>
-                                        <form action="./game/<%=escena.id %>">
-                                            <button type="submit" class="btn btn-outline-primary"
-                                                style="margin: 2px; height:  2.5em">Play</button>
-                                        </form>
-
-                                    </div>
-                                    <%}%>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <% for (let escena1 of escenas){ %>
-                            <% if (escena1.id===escena.id) {%>
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">
-                                                <%=escena.name %>
-                                            </h5>
-
-                                        </div>
-                                        <div class="modal-body">
-                                            <p style="font-size: x-large;"><b>Edit Scene</b></p>
-                                            <form action="/edit/<%= escena.id%>" method="post">
-                                                <div class="mb-3">
-                                                    <label for="recipient-name" class="col-form-label">Name:</label>
-                                                    <input type="text" name="name" class="form-control"
-                                                        id="recipient-name" value=<%=escena.name %>>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="recipient-name" class="col-form-label">Image:</label>
-                                                    <input type="text" name="image" class="form-control"
-                                                        id="recipient-name" value=<%=escena.rutaImage %>>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="message-text"
-                                                        class="col-form-label">Description:</label>
-                                                    <textarea class="form-control textarea" id="message-text"
-                                                        name="description"></textarea>
-                                                </div>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Edit</button>
-
-                                        </div>
-                                        </form>
-                                    </div>
-                                    <%}%>
-                                        <%}%>
-                                </div>
-
-
-                                <script>
-
-                                    var exampleModal = document.getElementById('exampleModal')
-                                    exampleModal.addEventListener('show.bs.modal', function (event) {
-                                        // Button that triggered the modal
-                                        var button = event.relatedTarget
-                                        // Extract info from data-bs-* attributes
-                                        var recipient = button.getAttribute('data-bs-whatever')
-                                        // If necessary, you could initiate an AJAX request here
-                                        // and then do the updating in a callback.
-                                        //
-                                        // Update the modal's content.
-                                        var modalTitle = exampleModal.querySelector('.modal-title')
-                                        var modalBodyInput = exampleModal.querySelector('.modal-body input')
-                                        var modalBodyText = exampleModal.querySelector('.textarea')
-
-                                        modalBodyText.value = "<%=escena.descripcion %>";
-                                    })
-                                </script>
-                    </div>
-                    <%}%>
+            <!------------------------INICIATE GAME--------------------------->
+            <div id="iniciateScene" class="m-1 btn btn-outline-info" style="float: right; color: blue;">Iniciate
+                Scene
             </div>
-            <script src="../game/JUMICI/scene_class.js"></script>
-            <script src="../game/JUMICI/actions.js"></script>
-            <script src="../game/JUMICI/createScene.js"></script>
+            <%}%>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4" style="overflow-x: hidden">
+        <% for ( let escena of escenas) { %>
+
+            <!------------------------CARD GAME--------------------------->
+            <div class="col">
+                <div class="card" style="min-width: fit-content;">
+                    <a href="./game/<%=escena.json %>">
+                        <img src=<%=escena.rutaImage ? escena.rutaImage : "/images/app/ciberseguridad.jpg" %>
+                        class="card-img-top" >
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title"><b>
+                                <%=escena.name%>
+                            </b></h5>
+                        <p class="card-text">
+                            <%=escena.descripcion%>
+                        </p>
+                        <%if (admin) {%>
+                            <div
+                                style="z-index:1000; display: flex; flex-direction: row; justify-content: space-evenly;">
+                                <button type="button" class="btn btn-outline-primary"
+                                    style="margin: 2px; height:  2.5em">Results</button>
+
+                                <form action="/edit/<%=escena.id%>">
+                                <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" style="margin: 2px; height:  2.5em">Edit</button>
+                                </form>
+
+                                <form action="/delete/<%=escena.id%>">
+                                    <button type="submit" class="btn btn-outline-primary"
+                                        style="margin: 2px; color: red; border-color: red; height: 2.5em">Delete</button>
+                                </form>
+                                <form action="./game/<%=escena.id %>">
+                                    <button type="submit" class="btn btn-outline-primary"
+                                        style="margin: 2px; height:  2.5em">Play</button>
+                                </form>
+                            </div>
+                            <%}%>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+    </div>
+    <script src="../game/JUMICI/scene_class.js"></script>
+    <script src="../game/JUMICI/actions.js"></script>
+    <script src="../game/JUMICI/createScene.js"></script>

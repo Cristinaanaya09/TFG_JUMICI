@@ -1,0 +1,201 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<div>
+    <nav class="fixed-top loginNav">
+        <h1>JUMICI <img src=./images/app/icon.png height="29"></h1>
+        <div>
+            <a href="/index" class="btn btn-outline-dark btn-nav">Escenas</a>
+            <a href="/logout" class="btn btn-outline-dark btn-nav">Log out</a>
+        </div>
+    </nav>
+
+    <div class="editBody">
+
+        <div class="initial">
+            <p style="text-align: center; font-size: large;"><b>CREATE GAME:</b></p>
+            Here you can create the created game. You also have to decide here the correct answers of the game.
+        </div>
+
+        <div style="margin: 2em; display: flex; justify-content: center; align-items: center;";>
+            If the JSON file does not yet exist, it can be downloaded by clicking on the following button:
+
+            <div id="iniciateScene" class="m-1 btn btn-outline-info" style="float: right; color: blue; ">Iniciate
+                Scene
+            </div>
+        </div>
+
+        <div class="editCard">
+            <!------------------------CARD GAME --------------------------->
+            <div class="card" style="min-width: fit-content; margin: 1em; color: black;">
+
+                <img src="/images/app/ciberseguridad.jpg" class="card-img-top">
+
+                <div class="card-body">
+                    <h5 class="card-title"><b>
+                            Game name
+                        </b></h5>
+                    <p class="card-text">
+                        Game description
+                    </p>
+                </div>
+            </div>
+
+            <!------------------------CARD GAME POPUP--------------------------->
+
+
+            <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+                tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered" style="color: black;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalToggleLabel">Create Game</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div
+                                style="font-size: small; margin: 1em; padding:1em; border-radius: 6px; background-color: rgb(57, 96, 97); color: white; min-width: fit-content;">
+                                Here you will create a new game. You need to choose the JSON file of the game. (*) means
+                                that it is obligatory to fill.
+                            </div>
+                            <form action="/index" method="post">
+                                Name's scene (*):
+                                <input class="form-control" type="text" name="name" placeholder="Scene"
+                                    aria-label="default input example" required="required">
+                                <div class="form-floating">
+                                    <select class="form-select" name="json" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <% for (let filename of filenames){ %>
+                                            <option selected>
+                                                <%=filename %>
+                                            </option>
+                                            <% } %>
+                                    </select>
+                                    <label for="floatingSelect" style="font-size: medium;">JSON Files</label>
+                                </div>
+                                <p>
+                                    <label for="exampleDataList" class="form-label"
+                                        style="font-size: medium; margin-top: 5px; margin-bottom: 0px;">Image</label>
+                                    <input class="form-control" name="image" list="datalistOptions" id="exampleDataList"
+                                        placeholder="Type to search...">
+                                    <datalist id="datalistOptions">
+                                        <% for (let image of images){ %>
+                                            <option value="/images/app/<%=image%>">
+                                                <% } %>
+                                    </datalist>
+                                </p>
+                                Description (*):
+                                <textarea class="form-control" name="description" id="exampleFormControlTextarea1"
+                                    rows="3" required="required"></textarea>
+
+                                <button type="submit" class="m-1 btn btn-outline-info" id="liveToastBtn"
+                                    style="float: right;">Create</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" data-bs-target="#exampleModalToggle2"
+                                data-bs-toggle="modal">Open second modal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div
+                style="margin: 2em; background-color: rgb(12 8 39); border-radius: 8px; color: white; padding: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+
+                <p>The game card shows the name, a photo, and a description of the game. </p>
+                <p>To create a new game card click on the following button. </p>
+                <div>
+                    <a class="btn btn-outline-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button"
+                        style="display: block; color: blue!important;">Create</a>
+                </div>
+                <p style="margin-top: 1rem;">The fields that contain a (*) cannot be left empty, they are mandatory to
+                    fill in. In addition, you cannot put a namebor a JSON file that
+                    already corresponds to another scene. </p>
+
+            </div>
+        </div>
+
+
+
+
+        <!------------------------QUESTIONS AND ANSWERS--------------------------->
+       <!------------------------QUESTIONS AND ANSWERS--------------------------->
+        <div style="margin: 1em; overflow-x: hidden;">
+            <div class="correctAnswers">
+                Here are the game questions with their different options. For each question you can select the correct answer and hit the "save" button, in this way the correct answers will be saved.
+            </div>
+            <p>
+             <% if(answer) { %>
+                <% for(let i=0; i < json.sceneArray.length; i++) { %>
+                    <% if(json.sceneArray[i].test!==undefined) { %>
+                        <div style="font-size: x-large;">Scene <%=i %>: </div>
+                        <% for(let j=0; j < json.sceneArray[0].test.length; j++) { %>
+                            <form action="/answers/<%=scene.json%>" method="post" style="margin:1em">
+                                <p>
+                                    <b>
+                                        <%=json.sceneArray[i].test[j].question%>
+                                    </b>
+                                </p>
+                                <p>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="answer" value="A"
+                                        id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        <%=json.sceneArray[i].test[j].a%>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="answer" value="B"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        <%=json.sceneArray[i].test[j].b%>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="answer" value="C"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        <%=json.sceneArray[i].test[j].c%>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="answer" value="D"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        <%=json.sceneArray[i].test[j].d%>
+                                    </label>
+                                </div>
+            </p>
+            <button type="submit" class="m-1 btn btn-outline-info">Save</button>
+            </form>
+            <%}%>
+                <%}%>
+                    <%}%>
+                    <%}%>
+
+                        </p>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+</div>

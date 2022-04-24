@@ -24,6 +24,16 @@ module.exports = {
           onDelete: 'CASCADE',
           allowNull: false,
         },
+        game:{
+          type: Sequelize.INTEGER,
+          foreignKey: true,
+          references: {
+            model: "Scenes",
+            key: "id"
+          },
+          onUpdate: 'CASCADE',
+          allowNull: false,
+        },
         scene:{
           type: Sequelize.INTEGER,
           allowNull: false,
