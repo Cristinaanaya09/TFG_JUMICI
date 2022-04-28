@@ -32,6 +32,11 @@ module.exports = {
             key: "id"
           },
           onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
+          allowNull: false,
+        },
+        attempt:{
+          type: Sequelize.INTEGER,
           allowNull: false,
         },
         scene:{

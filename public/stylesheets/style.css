@@ -170,11 +170,26 @@ nav{
 .intro{
     overflow-x: hidden;
     margin-top: 3em;
-    padding: 1.2em;
+    padding-top: 1.2em;
     background-image: url(https://ak.picdn.net/shutterstock/videos/1031936000/thumb/8.jpg?ip=x480);
     width: auto;
     text-align: center;
     color: white;
+}
+.createGame{
+    min-height: 2em;
+    margin-top: 1em!important;
+    background-color: #10ceff87!important;
+    color: white!important;
+    border: none;
+    width: 100%;
+    font-style: oblique;
+    font-variant-caps: all-small-caps;
+    border-top: 1px solid white!important;
+}
+
+.createGame:hover{
+    background-color: #2f9bb7!important;
 }
 /*************POPUP*************************/
 .overlay { 
@@ -232,6 +247,7 @@ nav{
     margin: 1em;
     background-color: #ffbb3b;
     color: black;
+    width: 96%;
 }
 .correctAnswers{
     margin: 1em;
@@ -246,11 +262,11 @@ nav{
 .editBody{
     margin-top: 3em !important; 
     background-color: rgb(12 8 39); 
-    border-radius: 8px; 
     color: white; 
     display: flex; 
     justify-content: center;
     flex-direction: column;
+    align-items: center;
 }
 
 /****************RESULTADO******************/
@@ -475,6 +491,9 @@ a{
 }
 .small-text{
     font-size: calc(10px + 1vw);
+}
+#final{
+    opacity: 0;
 }
 /*div{
     font-size: calc(14px + 1vw);

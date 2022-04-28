@@ -28,6 +28,7 @@ UserAnswer.init(
   { 
     user: DataTypes.INTEGER,
     game: DataTypes.INTEGER,
+    attempt: DataTypes.INTEGER,
     scene: DataTypes.INTEGER,
     question: DataTypes.INTEGER,
     answer: DataTypes.STRING,

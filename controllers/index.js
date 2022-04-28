@@ -63,13 +63,27 @@ exports.crear = async (req, res, next) => {
         console.log("CREAMOS ESCENA")
         console.log("json: " + req.body.json)
         let image;
+        let message = false;
+        let answer =false;
+
+        //For creating a new game
+        let directory_name = "./public/game/JUMICI/scenes";
+        let filenames = fs.readdirSync(directory_name);
+        let images = fs.readdirSync("./public/images/app");
+
+        const jsonAction = require("../public/game/JUMICI/scenes/" + req.body.json);
+        const json = require("../public/game/JUMICI/languages/" + jsonAction.language + '.json');
 
         //Check if there is anothe game with that json
         let jsonExist = await models.Scene.findOne({ where: { json: req.body.json } });
-        if (jsonExist) {
+        let nameExist = await models.Scene.findOne({ where: { name: req.body.name } });
+        if (jsonExist || nameExist) {
             console.log("maal")
-            res.redirect('createShow');
+            message = true;
+            res.render('create', { json, filenames, images, answer, message });
         }
+        
+        //Create new game
         //Check if there is an image
         if (req.body.image.length === 0) {
             image = "images/app/ciberseguridad.jpg"
@@ -84,15 +98,13 @@ exports.crear = async (req, res, next) => {
             rutaImage: image,
             descripcion: req.body.description,
         }
-        let directory_name = "./public/game/JUMICI/scenes";
-        let filenames = fs.readdirSync(directory_name);
-        let images = fs.readdirSync("./public/images/app");
-let answer =true;
+  
+        answer =true;
+       
         await models.Scene.create(game);
         let scene = await models.Scene.findOne({ where: { json: req.body.json } });
-        const jsonAction = require("../public/game/JUMICI/scenes/" + req.body.json);
-        const json = require("../public/game/JUMICI/languages/" + jsonAction.language + '.json');
-        res.render('create', { json, filenames, images, answer, scene });
+     
+        res.render('create', { json, filenames, images, answer, scene, message });
     } catch (e) {
         console.log("ERROR: " + e)
     }
@@ -113,14 +125,20 @@ exports.delete = async (req, res, next) => {
 exports.showEdit = async (req, res, next) => {
     try {
         console.log("ACCEDEMOS A EDIT: " + req.load.scene.id)
+
+        //For editing the card
         let images = fs.readdirSync("./public/images/app")
         let scene = await models.Scene.findByPk(req.load.scene.id)
         console.log(scene.json)
         const jsonAction = require("../public/game/JUMICI/scenes/" + scene.json);
         const json = require("../public/game/JUMICI/languages/" + jsonAction.language + '.json');
-        console.log("jsonpars")
+
+
+        //For editing questions and answers
         let answer = true;
-        res.render('edit', { scene, images, json, answer });
+        let message=true;
+        let correctAnswers = await models.Answer.findAll({where: {game: scene.id}})
+        res.render('edit', { scene, images, json, answer, message, correctAnswers });
     } catch (e) {
         console.log("ERROR: " + e)
     }
@@ -135,7 +153,14 @@ exports.edit = async (req, res, next) => {
         console.log("name:  " + req.body.name)
         console.log("ruta:  " + req.body.image)
         console.log("desc" + req.body.description)
+        
+        //Check if there is already a game with that name
+        let gameExist = await models.Scene.findAll({where: {name: scene.name}})
+        if(gameExist){
+            res.redirect('/edit/' + req.load.scene.id);
+        }
 
+        //Edit the game
         await scene.update({
             name: req.body.name,
             rutaImage: req.body.image,
@@ -170,13 +195,11 @@ exports.kkk = async (req, res, next) => {
 exports.createShow = async (req, res, next) => {
     try {
         let directory_name = "./public/game/JUMICI/scenes";
-
-        // Function to get current filenames
-        // in directory
-        let answer = false
+        let answer = false;
+        let message = false;
         let filenames = fs.readdirSync(directory_name);
         let images = fs.readdirSync("./public/images/app");
-        res.render('create', { filenames, images, answer });
+        res.render('create', { filenames, images, answer, message });
     } catch (e) {
         console.log("ERROR: " + e)
     }

@@ -11,12 +11,19 @@
     </nav>
 
     <div class="editBody">
-
+     
         <div class="initial">
             <p style="text-align: center; font-size: large;"><b>EDIT GAME:</b></p>
             Here you can edit the created game. You also have to decide here the correct answers of the game.
         </div>
+        <% if(message){%>
+            <div id="messageMal" style="width: fit-content; padding: 0.5em;">
+                <div class="message" style=" font-size: large; text-align: center;">
+                    The editing of the scene has gone wrong. You have written an existing name.
+                </div>
+            </div> 
 
+        <%}%>
         <div class="editCard">
             <!------------------------CARD GAME --------------------------->
             <div class="card" style="min-width: fit-content; margin: 1em; color: black;">
@@ -139,12 +146,24 @@
                                         <%=json.sceneArray[i].test[j].d%>
                                     </label>
                                 </div>
+                                <input type="hidden" name="scene" value="<%=i%>"
+                                        id="flexRadioDefault2" checked>
+                                <input  type="hidden" name="question" value="<%=j%>"
+                                        id="flexRadioDefault2" checked>
+                                        
+                                <%for (let correct of correctAnswers) {%>
+                                    <%if(parseInt(correct.scene) === i && parseInt(correct.question) === j){ %>
+                                <div style="color: red;"> The currently correct answer is: <%=correct.answer%></div>
+                                    <%}%>
+                                <%}%>
+                                
+
             </p>
             <button type="submit" class="m-1 btn btn-outline-info">Save</button>
             </form>
             <%}%>
-                <%}%>
-                    <%}%>
+        <%}%>
+    <%}%>
 
                         </p>
         </div>

@@ -13,77 +13,19 @@
     <!------------------------INTRO--------------------------->
     <section class="intro">
         <h1 style="font-size: xx-large;">WELCOME TO JUMICI!</h1>
-        <p style="font-size: large;">
+        <p style="font-size: large; padding-left: 3em; padding-right: 3em;">
             Welcome to the Jumici website. Here you will find different games related to cybersecurity to learn in a
             more fun and dynamic way. Here you can select the scene you want to play.</p>
+
+            <%if (admin) {%>
+
+                    <!------------------------CREATE GAME--------------------------->
+                    <a href="/createShow" class="btn createGame">Create new game</a>
+
+            <%}%>
     </section>
 
-    <div style="min-height: 1.3em;">
-        <%if (admin) {%>
-
-            <a href="/createShow" class="m-1 btn btn-outline-info">Create</a>
-
-
-
-            <!------------------------CREATE GAME--------------------------->
-            <a href="#popup" class="m-1 btn btn-outline-info" id="liveToastBtn"
-                style="float: right; color: blue;">Create</a>
-
-            <!----CREATE GAME POPUP------->
-            <div id="popup" class="overlay">
-                <div id="popupBody">
-
-                    <h2>Create Scene</h2>
-                    <a id="cerrar" href="#">&times;</a>
-                    <div class="popupContent" style="font-size: medium;">
-                        <div
-                            style="font-size: small; margin: 1em; padding:1em; border-radius: 6px; background-color: rgb(57, 96, 97); color: white; min-width: fit-content;">
-                            Here you will create a new game. You need to choose the JSON file of the game. (*) means
-                            that it is obligatory to fill.
-                        </div>
-                        <form action="/index" method="post">
-                            Name's scene (*):
-                            <input class="form-control" type="text" name="name" placeholder="Scene"
-                                aria-label="default input example" required="required">
-                            <div class="form-floating">
-                                <select class="form-select" name="json" id="floatingSelect"
-                                    aria-label="Floating label select example">
-                                    <% for (let filename of filenames){ %>
-                                        <option selected>
-                                            <%=filename %>
-                                        </option>
-                                        <% } %>
-                                </select>
-                                <label for="floatingSelect" style="font-size: medium;">JSON Files</label>
-                            </div>
-                            <p>
-                                <label for="exampleDataList" class="form-label"
-                                    style="font-size: medium; margin-top: 5px; margin-bottom: 0px;">Image</label>
-                                <input class="form-control" name="image" list="datalistOptions" id="exampleDataList"
-                                    placeholder="Type to search...">
-                                <datalist id="datalistOptions">
-                                    <% for (let image of images){ %>
-                                        <option value="/images/app/<%=image%>">
-                                            <% } %>
-                                </datalist>
-                            </p>
-                            Description (*):
-                            <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"
-                                required="required"></textarea>
-
-                            <button type="submit" class="m-1 btn btn-outline-info" id="liveToastBtn"
-                                style="float: right;">Create</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!------------------------INICIATE GAME--------------------------->
-            <div id="iniciateScene" class="m-1 btn btn-outline-info" style="float: right; color: blue;">Iniciate
-                Scene
-            </div>
-            <%}%>
-    </div>
+   
 
     <div class="row row-cols-1 row-cols-md-3 g-4" style="overflow-x: hidden">
         <% for ( let escena of escenas) { %>
@@ -109,8 +51,7 @@
                                     style="margin: 2px; height:  2.5em">Results</button>
 
                                 <form action="/edit/<%=escena.id%>">
-                                <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" style="margin: 2px; height:  2.5em">Edit</button>
+                                <button type="submit" class="btn btn-outline-primary" style="margin: 2px; height:  2.5em" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Click here if you want to edit this game">Edit</button>
                                 </form>
 
                                 <form action="/delete/<%=escena.id%>">

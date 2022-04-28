@@ -81,7 +81,7 @@ router.post('/filter', isLoggedIn, isAdmin, resultController.filter);
 ////////////////////////////GAME///////////////////////////////
 
 router.post('/escena', isLoggedIn, seguirController.escenas);
-router.post('/final', isLoggedIn, seguirController.final);
+router.get('/final', isLoggedIn, indexController.index);
 
 router.get('/resultados', isLoggedIn, isAdmin, resultController.resultados);
 

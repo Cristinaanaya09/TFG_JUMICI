@@ -55,14 +55,32 @@ exports.answers = async (req, res, next) => {
         let game = await models.Scene.findOne({where:{json: req.params.json}})
         console.log("respuuuuuuu")
         console.log("resp: " + req.body.answer)
+
+        //Check if there is already a saved answer
+        let answerExist = await models.Answer.findOne({where:{game: game.id, scene: req.body.scene, question: req.body.question}})
+        if(answerExist){
+            console.log("answerExist")
+            answerExist.update({
+                game: game.id,
+                scene: req.body.scene,
+                question: req.body.question,
+                answer: req.body.answer,
+            });
+            res.redirect('/edit/'+game.id);
+        }
+        else{
+
+        //Create answer
         let correctAnswer = {
-            game: game,
-            scene: 0,
-            question: 0,
+            game: game.id,
+            scene: req.body.scene,
+            question: req.body.question,
             answer: req.body.answer,
         }
+
         await models.Answer.create(correctAnswer);
-        res.end();
+        res.redirect('/edit/'+game.id);
+    }
     } catch (e) {
         console.log("ERROR: " + e)
     }
