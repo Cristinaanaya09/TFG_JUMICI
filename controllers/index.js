@@ -194,6 +194,7 @@ exports.kkk = async (req, res, next) => {
 
 exports.createShow = async (req, res, next) => {
     try {
+        console.log("ENTRAMOS EN CREAAAAR")
         let directory_name = "./public/game/JUMICI/scenes";
         let answer = false;
         let message = false;

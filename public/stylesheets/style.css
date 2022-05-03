@@ -178,7 +178,7 @@ nav{
 }
 .createGame{
     min-height: 2em;
-    margin-top: 1em!important;
+    margin-top: 2em!important;
     background-color: #10ceff87!important;
     color: white!important;
     border: none;
@@ -186,10 +186,21 @@ nav{
     font-style: oblique;
     font-variant-caps: all-small-caps;
     border-top: 1px solid white!important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .createGame:hover{
     background-color: #2f9bb7!important;
+}
+.icon{
+    font-size: xx-large;
+    color: #0c0827;
+}
+.card-body{
+    color: #0c0827;
 }
 /*************POPUP*************************/
 .overlay { 
@@ -521,7 +532,7 @@ a{
         height: 0px;
     }
     .editCard{
-        grid-template-columns: 30% 70%;
+        grid-template-columns: 40% 60%;
     }
 }
 @media (orientation: Portrait) {

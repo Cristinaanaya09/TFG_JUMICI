@@ -1,6 +1,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
-
 <div>
     <nav class="fixed-top loginNav">
         <h1>JUMICI <img src=./images/app/icon.png height="29"></h1>
@@ -27,9 +26,9 @@
         </div>
 
         <div style="margin: 1em; display: flex; justify-content: center; align-items: center;";>
-            If the JSON file does not yet exist, it can be downloaded by clicking on the following button:
+            If the JSON file does not yet exist, it can be downloaded by clicking on the following button:     
 
-            <div id="iniciateScene" class="m-1 btn btn-outline-info" style="float: right; color: blue; ">Iniciate
+            <div id="iniciateScene" class="m-1 btn" style="float: right; color: #ffbb3b; border-color: #ffbb3b;; ">Iniciate
                 Scene
             </div>
         </div>
@@ -114,8 +113,9 @@
 
 
 
-            <div style="background-color: rgb(12 8 39); border-radius: 8px; color: white; padding: 1em; margin: 4rem;">
+            <div style="background-color: rgb(0 62 105); border-radius: 8px; color: white; padding: 3em; margin: 2rem; display: flex; justify-content: center; align-items: center; flex-direction: column;">
 
+                <div>
                 <p>The game card shows the name, a photo, and a description of the game. </p>
                 <p>The fields that contain a (*) cannot be left empty, they are mandatory to
                     fill in. In addition, you cannot put a namebor a JSON file that
@@ -123,10 +123,11 @@
                 <p>To create a new game card click on the following button. </p>
                 
                 <div style="display: flex; justify-content: center; text-align: center;">
-                    <a class="btn btn-outline-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button"
-                        style=" color: blue!important; width: fit-content;">Create</a>
+                    <a class="btn" data-bs-toggle="modal" href="#exampleModalToggle" role="button"
+                        style="    color: #0c0827!important; width: fit-content; background-color: #ffbb3b;
+                    ">Create</a>
                 </div>
-               
+            </div>
 
             </div>
         </div>
@@ -135,12 +136,14 @@
 
 
        <!------------------------QUESTIONS AND ANSWERS--------------------------->
-        <div style="margin: 1em; overflow-x: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; color: black;">
+       <% if(answer) { %>
+       <div style="margin: 1em; overflow-x: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; color: black;">
+            
             <div class="correctAnswers">
                 Here are the game questions with their different options. For each question you can select the correct answer and hit the "save" button, in this way the correct answers will be saved.
             </div>
             <p>
-                <% if(answer) { %>
+                
                 <div style="background-color: white; box-shadow: 0 0 5px #CCC; padding: 2em; ">
              
                 <% for(let i=0; i < json.sceneArray.length; i++) { %>
@@ -194,10 +197,10 @@
                     <%}%>
                  
                 </div>
-                <%}%>
+               
                         </p>
         </div>
-
+        <%}%>
 
 
 
@@ -215,3 +218,6 @@
 
 
 </div>
+<script src="./game/JUMICI/scene_class.js"></script>
+<script src="./game/JUMICI/actions.js"></script>
+<script src="./game/JUMICI/createScene.js"></script>

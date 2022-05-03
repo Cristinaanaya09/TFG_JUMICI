@@ -4,6 +4,7 @@ const seguirController = require("../controllers/seguirAlumno");
 const resultController = require("../controllers/resultados");
 const indexController = require("../controllers/index");
 const gameController = require("../controllers/game");
+const createController = require("../controllers/createGame");
 const passport = require('passport');
 const { models } = require('../models');
 const {isNotLoggedIn, isLoggedIn, isAdmin} = require('../controllers/link')
@@ -69,9 +70,13 @@ router.get('/index', isLoggedIn, indexController.index);
 router.post('/index', isLoggedIn, isAdmin, indexController.crear);
 router.get('/delete/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.delete);
 router.get('/kkk/:json', isLoggedIn, isAdmin, indexController.kkk);
-router.get('/createShow', isLoggedIn, isAdmin, indexController.createShow);
 router.get('/edit/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.showEdit);
 router.post('/edit/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.edit);
+
+/////////////////////////CREATE/////////////////////////////
+router.get('/createShow', isLoggedIn, isAdmin, indexController.createShow);
+router.post('/download', isLoggedIn, isAdmin, createController.download);
+
 
 /////////////////////////RESULTADOS/////////////////////////////
 router.get('/resultados', isLoggedIn, isAdmin, resultController.resultados);
