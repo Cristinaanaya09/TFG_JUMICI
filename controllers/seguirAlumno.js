@@ -21,6 +21,7 @@ exports.seguimiento = async (req, res, next) => {
             game: scene.id,
             scene: req.body.sceneNumber,
             user: req.user.id,
+            attempt: 1,
             question: parseInt(req.body.testNumber),
             answer: req.body.id,
             time: req.body.time,
@@ -87,13 +88,4 @@ exports.answers = async (req, res, next) => {
 
 }
 
-exports.final = async (req, res, next) => {
-    try {
-        console.log("Final!!")
-        res.redirect('index');
-    } catch (e) {
-        console.log("ERROR: " + e)
-    }
-
-}
 

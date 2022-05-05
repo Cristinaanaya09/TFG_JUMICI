@@ -67,14 +67,18 @@ router.get('/logout', isLoggedIn, function (req, res, next) {
 /////////////////////////INDEX/////////////////////////////
 
 router.get('/index', isLoggedIn, indexController.index);
-router.post('/index', isLoggedIn, isAdmin, indexController.crear);
+router.post('/enabled/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.enabled);
 router.get('/delete/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.delete);
-router.get('/kkk/:json', isLoggedIn, isAdmin, indexController.kkk);
+
+
+
+
 router.get('/edit/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.showEdit);
 router.post('/edit/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.edit);
 
 /////////////////////////CREATE/////////////////////////////
-router.get('/createShow', isLoggedIn, isAdmin, indexController.createShow);
+router.post('/create', isLoggedIn, isAdmin, createController.crear);
+router.get('/createShow', isLoggedIn, isAdmin, createController.createShow);
 router.post('/download', isLoggedIn, isAdmin, createController.download);
 
 
@@ -86,7 +90,7 @@ router.post('/filter', isLoggedIn, isAdmin, resultController.filter);
 ////////////////////////////GAME///////////////////////////////
 
 router.post('/escena', isLoggedIn, seguirController.escenas);
-router.get('/final', isLoggedIn, indexController.index);
+
 
 router.get('/resultados', isLoggedIn, isAdmin, resultController.resultados);
 
@@ -96,5 +100,9 @@ router.get('/game/:json', isLoggedIn, gameController.game);
 router.post('/game/:json', seguirController.seguimiento);
 
 router.post('/answers/:json', seguirController.answers);
+
+//QUITAAAAAAAR
+//router.get('/final', isLoggedIn, indexController.index);
+//router.get('/kkk/:json', isLoggedIn, isAdmin, indexController.kkk);
 
 module.exports = router;

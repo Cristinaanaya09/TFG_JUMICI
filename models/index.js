@@ -45,6 +45,7 @@ Scene.init(
     json: DataTypes.STRING,
     rutaImage: DataTypes.STRING,
     descripcion: DataTypes.STRING,
+    enabled: DataTypes.BOOLEAN
   }, 
   { sequelize }
 );
@@ -59,6 +60,8 @@ Answer.init(
   { sequelize }
 );
 
+///////////////////////////////////////////////
+////////////////AQUI BORRAR////////////////////
 Answer.belongsToMany(User, {
   as: 'users',
   through: 'Answers',
