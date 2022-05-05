@@ -7,7 +7,7 @@
         <div>
             <%if (admin) {%>
                 <a href="/createShow" class="btn btn-nav">Create new game</a>
-                <a href="/resultados" class="btn btn-nav">Student's Results</a>
+                <a href="/results" class="btn btn-nav">Student's Results</a>
                 <%}%>
                     <a href="/logout" class="btn btn btn-outline-light btn-nav">Log out</a>
         </div>
@@ -61,7 +61,7 @@
                             <div
                                 style="z-index:1000; display: flex; flex-direction: row; justify-content: space-evenly;">
                                 <%if (admin) {%>
-                                    <a><i class="fa-solid fa-square-poll-vertical icon"></i></a>
+                                    <a href="/results/<%=escena.id%>"><i class="fa-solid fa-square-poll-vertical icon"></i></a>
                                     
                                     <a href="/edit/<%=escena.id%>"><i class="fa-solid fa-pen-to-square icon"></i></a> 
                                    

@@ -83,17 +83,14 @@ router.post('/download', isLoggedIn, isAdmin, createController.download);
 
 
 /////////////////////////RESULTADOS/////////////////////////////
-router.get('/resultados', isLoggedIn, isAdmin, resultController.resultados);
 
+router.get('/results', isLoggedIn, isAdmin, resultController.resultados);
+router.get('/results/:sceneId', isLoggedIn, isAdmin, resultController.gameResults);
 router.post('/filter', isLoggedIn, isAdmin, resultController.filter);
 
 ////////////////////////////GAME///////////////////////////////
 
 router.post('/escena', isLoggedIn, seguirController.escenas);
-
-
-router.get('/resultados', isLoggedIn, isAdmin, resultController.resultados);
-
 
 router.get('/game/:json', isLoggedIn, gameController.game);
 

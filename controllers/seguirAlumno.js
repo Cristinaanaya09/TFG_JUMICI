@@ -3,25 +3,51 @@ const { models } = require('../models');
 exports.seguimiento = async (req, res, next) => {
     try {
         console.log("SEGUIR ALUMNO Y GUARDAR RESPUESTA")
-        console.log("id usuario: " + req.user.id);
+
         let correct=0;
-        let correctAnswer = await models.Answer.findOne({ where: { 
-                                                            scene: parseInt(req.body.sceneNumber),
-                                                            question: parseInt(req.body.testNumber),
-                                                        } });
-        console.log("Existe respCORRECTA: " + correctAnswer)
-        let scene = await models.Scene.findOne({ where: {json: req.params.json}});
+        let attemptcount =1;
+
        
-        console.log("IDESCENA: " + req.params.json)
+        let scene = await models.Scene.findOne({ where: {json: req.params.json}});
+
+        //Correct answer
+        let correctAnswer = await models.Answer.findOne({ where: { 
+            game: scene.id,
+            scene: parseInt(req.body.sceneNumber),
+            question: parseInt(req.body.testNumber),
+        }});
+        console.log("Existe respCORRECTA: " + correctAnswer)
+
+
         if(correctAnswer!==null)
-            if (correctAnswer.answer === req.body.id)
-                correct = 1;
-    console.log("correcto: " + correct)
+        if (correctAnswer.answer === req.body.id)
+            correct = 1;
+/*
+         //Check if it is already answer
+         let answer = await models.UserAnswer.findAll({ where: { 
+            game: scene.id,
+            user: req.user.id,
+            scene: parseInt(req.body.sceneNumber),
+            question: parseInt(req.body.testNumber),
+        } });
+        console.log("IDESCENA: " + answer)
+        if(answer.length!==0){
+            attemptcount =answer[answer.length-1].attempt +1;
+            
+            console.log("tt " + req.session.attempt)
+            console.log("mm " + req.session)
+            console.log("mm ")
+            console.log("vv " + attemptcount)
+        }
+        console.log("IDESCENA: " + req.params.json)
+
+        */
+      
         let respuesta = {
             game: scene.id,
             scene: req.body.sceneNumber,
             user: req.user.id,
-            attempt: 1,
+            attempt: req.session.attempt,
             question: parseInt(req.body.testNumber),
             answer: req.body.id,
             time: req.body.time,
