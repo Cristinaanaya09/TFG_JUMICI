@@ -44,15 +44,18 @@
           <p class="li"></p>
         </ul>
       </div>
+      
       <div class="accordion" id="myAccordion">
+        <% let i=0;%>
         <% for ( let user of users) {%>
+          <% i = ++i%>
           <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
+            <h2 class="accordion-header" id="heading<%=i%>">
               <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-                data-bs-target="#collapseOne">
+                data-bs-target="#collapse<%=i%>">
                 <ul class="li">
                   <div class="lis">
-                    <%=user.name%>
+                    <%=user.name%> <%= i%>
                   </div>
                   <div class="lis">
                     <%=user.email%>
@@ -65,14 +68,16 @@
 
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse">
+            <div id="collapse<%=i%>" class="accordion-collapse collapse">
+              <% let j=0;%>
               <% for ( let scene of scenes) {%>
                 <%for ( let correct of corrects) {%>
                   <% if ( correct.user===user.id) {%>
+                    <% j= ++j;%>
                     <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingOne">
+                      <h2 class="accordion-header" id="heading<%=i%><%=j%>">
                         <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-                          data-bs-target="#collapseOne" style="background-color: #0c0827; color: white;">
+                          data-bs-target="#collapse<%=i%><%=j%>" style="background-color: #0c0827; color: white;">
                           <ul class="li">
                             <div class="lis">
                               <%=scene.name%>
@@ -88,9 +93,11 @@
                         </button>
                       </h2>
                       
-                      <div id="collapseOne" class="accordion-collapse collapse">
+                      <div id="collapse<%=i%><%=j%>" class="accordion-collapse collapse">
                         <div class="card-body">
-                          <table class="table table-striped table-hover">
+                         
+                           
+                          <table class="table table-hover">
                             <thead>
                               <tr>
                                 <th scope="col">Date</th>
@@ -105,7 +112,12 @@
                               <% for ( let answer of list) {%>  
                                 <% if (answer.user===user.id) {%>
                                   <% if ( answer.game===scene.id) {%>
+                                    <% if ( answer1.attempt===answer.attempt) {%>
+                                    
                                   <tr>
+                                    <% for ( let answer1 of list) {%>  
+
+                                      <div>Attempt <%=answer1.attempt%></div>
 
                                     <th scope="row">
                                       <%=answer.updatedAt%>
@@ -132,8 +144,10 @@
                                   <%}%>
                                     <%}%>
                                     <%}%>
+                                    
                             </tbody>
                           </table>
+                          <%}%>
                         </div>
                       </div>
                     </div>
