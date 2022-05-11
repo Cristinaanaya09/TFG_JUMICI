@@ -1,6 +1,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<div>
+<div style="min-height: 100vh; background-color: rgb(12 8 39);">
     <nav class="fixed-top loginNav">
         <h1>JUMICI <img src=./images/app/icon.png height="29"></h1>
         <div>
@@ -184,7 +184,7 @@
                                 <% if(json.sceneArray[i].test!==undefined) { %>
                                     <div style="font-size: x-large;">Scene <%=i %>: </div>
                                     <% for(let j=0; j < json.sceneArray[0].test.length; j++) { %>
-                                        <form action="/answers/<%=scene.json%>" method="post" style="margin:1em">
+                                        <form action="/answers/create/<%=scene.json%>" method="post" style="margin:1em">
                                             <p>
                                                 <b>
                                                     <%=json.sceneArray[i].test[j].question%>
@@ -224,6 +224,14 @@
                                             <input type="hidden" name="question" value="<%=j%>" id="flexRadioDefault2"
                                                 checked>
                                             </p>
+
+                                            <%for (let correct of correctAnswers) {%>
+                                                <%if(parseInt(correct.scene)===i && parseInt(correct.question)===j){ %>
+                                                    <div class="pb-3" style="color: red;"> The currently correct answer is:
+                                                        <%=correct.answer%>
+                                                    </div>
+                                                    <%}%>
+                                                        <%}%>
                                             <button type="submit" class="m-1 btn btn-outline-info">Save</button>
                                         </form>
                                         <%}%>

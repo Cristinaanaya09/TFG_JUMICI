@@ -12,27 +12,46 @@ exports.createShow = async (req, res, next) => {
         let images = fs.readdirSync("./public/images/app");
         res.render('create', { filenames, images, answer, message });*/
 
+        console.log(req.params.question)
+        console.log(req.params.json)
+        let scene;
+        let json;
+        let correctAnswers; 
 
-
+        let answer = false;
         console.log("ENTRAMOS EN CREAAAAR")
         let directory_name = "./public/game/JUMICI/scenes";
-        let answer = false;
+        console.log(req.params.question === "true")
+        if (req.params.question === "true") {
+            answer = true;
+            if (req.params.json !== null) {
+
+
+                scene = await models.Scene.findOne({ where: { json: req.params.json } });
+                correctAnswers = await models.Answer.findAll({where: {game: scene.id}})
+                const jsonAction = require("../public/game/JUMICI/scenes/" + req.params.json);
+                json = require("../public/game/JUMICI/languages/" + jsonAction.language + '.json');
+            }
+
+        }
+
         let message = false;
-    
+        console.log(answer);
+
 
         let images = fs.readdirSync("./public/images/app");
 
-        
+
 
 
         let filenames = [];
 
-        fs.promises.readdir(directory_name).then( files => {
-          files.forEach(file => {
-                 filenames.push(file);
-           });
-           
-        res.render('create', { filenames, images, answer, message }); 
+        fs.promises.readdir(directory_name).then(files => {
+            files.forEach(file => {
+                filenames.push(file);
+            });
+
+            res.render('create', { filenames, images, answer, message, scene, json, correctAnswers });
 
         });
 
@@ -46,9 +65,10 @@ exports.crear = async (req, res, next) => {
     try {
         console.log("CREAMOS ESCENA")
         console.log("json: " + req.body.json)
+
         let image;
         let message = false;
-        let answer =false;
+        let answer = false;
 
         //For creating a new game
         let directory_name = "./public/game/JUMICI/scenes";
@@ -66,7 +86,7 @@ exports.crear = async (req, res, next) => {
             message = true;
             res.render('create', { json, filenames, images, answer, message });
         }
-        
+
         //Create new game
         //Check if there is an image
         if (req.body.image.length === 0) {
@@ -83,13 +103,14 @@ exports.crear = async (req, res, next) => {
             descripcion: req.body.description,
             enabled: req.body.enabled
         }
-  
-        answer =true;
-       
+
+        answer = true;
+
         await models.Scene.create(game);
         let scene = await models.Scene.findOne({ where: { json: req.body.json } });
-     
-        res.render('create', { json, filenames, images, answer, scene, message });
+        let correctAnswers = await models.Answer.findAll({where: {game: scene.id}})
+
+        res.render('create', { json, filenames, images, answer, scene, message, correctAnswers });
     } catch (e) {
         console.log("ERROR: " + e)
     }
@@ -102,19 +123,19 @@ exports.download = async (req, res, next) => {
         console.log("file")
         console.log(req.body.file)
 
-            fs.promises.writeFile('./public/game/JUMICI/scenes/'+req.body.name + '.json', req.body.file, err => {
-                if (err) {
-                  console.error(err)
-                  return
-                }
+        fs.promises.writeFile('./public/game/JUMICI/scenes/' + req.body.name + '.json', req.body.file, err => {
+            if (err) {
+                console.error(err)
+                return
             }
-            
-            ).then(() => {
-                res.redirect('/createShow');
-            }
-            )
-          
-        
+        }
+
+        ).then(() => {
+            res.redirect('/createShow');
+        }
+        )
+
+
     } catch (e) {
         console.log("ERROR: " + e)
     }

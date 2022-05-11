@@ -23,6 +23,7 @@ nav{
 .btn-nav{
     color: white!important;
     margin: 4px;
+    font-size: auto; 
 }
 
 .btn-nav:hover{
@@ -34,7 +35,7 @@ nav{
 #btn-nav{ 
     width:15%;
     margin: 4px;
-    font-size: 15px; 
+    font-size: auto; 
     text-align: center;
     text-decoration: none;
     color: #000000; 
@@ -286,8 +287,10 @@ nav{
 }
 
 .resultaside{
-    background-image: url(https://thumbs.dreamstime.com/b/fondo-azul-abstracto-de-azul-marino-elegante-30802629.jpg);
-    height: 100vh;
+    /*background-image: url(https://thumbs.dreamstime.com/b/fondo-azul-abstracto-de-azul-marino-elegante-30802629.jpg);*/
+    background-image:radial-gradient(circle at 80.14% 81.41%, #f5cfeb 0, #98def1 25%, #4e81b9 50%, #170a83 75%, #0b0d10 100%);
+    min-height: 100vh;
+    height: 100%;
     border-width: 1px;
     border-radius: 5;
     color: white;

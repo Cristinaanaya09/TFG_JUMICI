@@ -78,7 +78,7 @@ router.post('/edit/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.edit);
 
 /////////////////////////CREATE/////////////////////////////
 router.post('/create', isLoggedIn, isAdmin, createController.crear);
-router.get('/createShow', isLoggedIn, isAdmin, createController.createShow);
+router.get('/createShow/:question/:json?', isLoggedIn, isAdmin, createController.createShow);
 router.post('/download', isLoggedIn, isAdmin, createController.download);
 
 
@@ -96,7 +96,7 @@ router.get('/game/:json', isLoggedIn, gameController.game);
 
 router.post('/game/:json', seguirController.seguimiento);
 
-router.post('/answers/:json', seguirController.answers);
+router.post('/answers/:type?/:json', seguirController.answers);
 
 //QUITAAAAAAAR
 //router.get('/final', isLoggedIn, indexController.index);

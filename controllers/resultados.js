@@ -1,25 +1,50 @@
-const { where } = require('sequelize/dist');
+
 const { models } = require('../models');
 
 exports.resultados = async (req, res, next) => {
     try {
         console.log("RESULTADO")
-       
-        let list = await models.UserAnswer.findAll();; //Se guardan las respuestas por usuario
-      
-        /*Sav corrects for user */
-        let corrects = [];
-        let users = await models.User.findAll();
-        for (let user of users) {
-            let totalAns = await models.UserAnswer.findAll({ where: { user: user.id, correct: 1 } });
-            let total = {
-                total: totalAns.length,
-                user: user.id
-            }
-            corrects.push(total);
-        }
-        let scenes = await models.Scene.findAll();
 
+        let answers = await models.UserAnswer.findAll(); //Se guardan las respuestas por usuario
+        let list = [];
+        for (let answer of answers) {
+            let x = await models.UserAnswer.findAll({ where: { user: answer.user, game: answer.game, attempt: answer.attempt } });
+            if (list.length === 0)
+                list.push(x);
+            else {
+                for (let i = 0; i < list.length; i++) {
+                    if (JSON.stringify(list[i]) === JSON.stringify(x)) {
+                        break;
+                    } else if (i === list.length - 1)
+                        list.push(x);
+                }
+            }
+
+        }
+
+        /*for (let l of list) {
+            console.log("PARTEE")
+            console.log(l)
+        }
+        console.log(list.length)*/
+        /*Sav corrects for user */
+    
+        let scenes = await models.Scene.findAll();
+        let users = await models.User.findAll();
+        
+        let corrects = [];
+        for (let person of users) {
+            for (let scene of scenes) {
+                let totalAns = await models.UserAnswer.findAll({ where: { user: person.id, game: scene.id, correct: 1 } });
+                let total = {
+                    total: totalAns.length,
+                    user: person.id,
+                    scene: scene.id
+                }
+                corrects.push(total);
+            }
+       
+        }
         res.render('resultados', { list, users, scenes, corrects });
     } catch (e) {
         console.log("ERROR: " + e)
@@ -33,12 +58,13 @@ exports.filter = async (req, res, next) => {
         let filter;
         let scenes;
         let game = await models.Scene.findAll({ where: { name: req.body.scene } });
+        let answers = await models.UserAnswer.findAll(); //Se guardan las respuestas por usuario
         let sceneId;
         let list = [];
         console.log("scenes:  " + typeof scenes);
         console.log("hola:  " + scenes);
         console.log("hola:  " + game.length);
-        
+
         /* SCENE */
         if (game === null || game.length === 0)
             scenes = await models.Scene.findAll();
@@ -63,7 +89,21 @@ exports.filter = async (req, res, next) => {
 
             /*scene: null, user: user*/
             if (game.length === 0)
-                list = await models.UserAnswer.findAll({ where: { user: userId } });
+
+                for (let answer of answers) {
+                    let x = await models.UserAnswer.findAll({ where: { user: userId, game: answer.game, attempt: answer.attempt } });
+                    if (list.length === 0)
+                        list.push(x);
+                    else {
+                        for (let i = 0; i < list.length; i++) {
+                            if (JSON.stringify(list[i]) === JSON.stringify(x)) {
+                                break;
+                            } else if (i === list.length - 1)
+                                list.push(x);
+                        }
+                    }
+
+                }
 
             /* user: null*/
         } else {
@@ -72,9 +112,22 @@ exports.filter = async (req, res, next) => {
             console.log("USER: " + game.length)
 
             /*scene: scene, user: null*/
-            if (game.length !== 0){
+            if (game.length !== 0) {
                 console.log("mal: ")
-                list = await models.UserAnswer.findAll({ where: {game: sceneId } });
+                for (let answer of answers) {
+                    let x = await models.UserAnswer.findAll({ where: { user: answer.user, game: sceneId, attempt: answer.attempt } });
+                    if (list.length === 0)
+                        list.push(x);
+                    else {
+                        for (let i = 0; i < list.length; i++) {
+                            if (JSON.stringify(list[i]) === JSON.stringify(x)) {
+                                break;
+                            } else if (i === list.length - 1)
+                                list.push(x);
+                        }
+                    }
+
+                }
             }
         }
 
@@ -83,26 +136,54 @@ exports.filter = async (req, res, next) => {
         /*scene: scene, user: user*/
         if (sceneId !== undefined && userId !== undefined) {
             console.log("FILTER: esenaId: " + sceneId + "Id:user " + userId);
-            list = await models.UserAnswer.findAll({ where: { game: sceneId, user: userId } });
+            for (let answer of answers) {
+                let x = await models.UserAnswer.findAll({ where: { user: userId, game: sceneId, attempt: answer.attempt } });
+                if (list.length === 0)
+                    list.push(x);
+                else {
+                    for (let i = 0; i < list.length; i++) {
+                        if (JSON.stringify(list[i]) === JSON.stringify(x)) {
+                            break;
+                        } else if (i === list.length - 1)
+                            list.push(x);
+                    }
+                }
+
+            }
             total = list.length
 
 
         } else if (sceneId === undefined && userId === undefined) {
-            list = await models.UserAnswer.findAll();
+            for (let answer of answers) {
+                let x = await models.UserAnswer.findAll({ where: { user: answer.user, game: answer.game, attempt: answer.attempt } });
+                if (list.length === 0)
+                    list.push(x);
+                else {
+                    for (let i = 0; i < list.length; i++) {
+                        if (JSON.stringify(list[i]) === JSON.stringify(x)) {
+                            break;
+                        } else if (i === list.length - 1)
+                            list.push(x);
+                    }
+                }
+
+            }
         }
 
 
         /*Sav corrects for user */
         let corrects = [];
         for (let person of users) {
-            let totalAns = await models.UserAnswer.findAll({ where: { user: person.id, correct: 1 } });
-            let total = {
-                total: totalAns.length,
-                user: person.id
+            for (let scene of scenes) {
+                let totalAns = await models.UserAnswer.findAll({ where: { user: person.id, game: scene.id, correct: 1 } });
+                let total = {
+                    total: totalAns.length,
+                    user: person.id,
+                    scene: scene.id
+                }
+                corrects.push(total);
             }
-            corrects.push(total);
         }
-
         res.render('resultados', { list, users, scenes, corrects });
     } catch (e) {
         console.log("ERROR: " + e)
@@ -114,10 +195,24 @@ exports.gameResults = async (req, res, next) => {
     try {
         console.log("results por juego");
 
-
+        let list = [];
+        let answers = await models.UserAnswer.findAll(); //Se guardan las respuestas por usuario
 
         /* ANSWERS OF THE GAME */
-        let list = await models.UserAnswer.findAll({ where: { game: req.params.sceneId } });
+        for (let answer of answers) {
+            let x = await models.UserAnswer.findAll({ where: { user: answer.user, game: req.params.sceneId, attempt: answer.attempt } });
+            if (list.length === 0)
+                list.push(x);
+            else {
+                for (let i = 0; i < list.length; i++) {
+                    if (JSON.stringify(list[i]) === JSON.stringify(x)) {
+                        break;
+                    } else if (i === list.length - 1)
+                        list.push(x);
+                }
+            }
+
+        }
 
         let scenes = await models.Scene.findAll({ where: { id: req.params.sceneId } });
 
@@ -126,13 +221,16 @@ exports.gameResults = async (req, res, next) => {
 
         /* CALCULATE TOTAL CORRECTS */
         let corrects = [];
-        for (let user of users) {
-            let totalAns = await models.UserAnswer.findAll({ where: { user: user.id, correct: 1 } });
-            let total = {
-                total: totalAns.length,
-                user: user.id
+        for (let person of users) {
+            for (let scene of scenes) {
+                let totalAns = await models.UserAnswer.findAll({ where: { user: person.id, game: scene.id, correct: 1 } });
+                let total = {
+                    total: totalAns.length,
+                    user: person.id,
+                    scene: scene.id
+                }
+                corrects.push(total);
             }
-            corrects.push(total);
         }
 
         res.render('resultados', { list, users, scenes, corrects });

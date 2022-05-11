@@ -6,7 +6,7 @@
         <h1>JUMICI <img src=./images/app/icon.png alt="Scene One" height="29"></h1>
         <div>
             <%if (admin) {%>
-                <a href="/createShow" class="btn btn-nav">Create new game</a>
+                <a href="/createShow/false" class="btn btn-nav">Create new game</a>
                 <a href="/results" class="btn btn-nav">Student's Results</a>
                 <%}%>
                     <a href="/logout" class="btn btn btn-outline-light btn-nav">Log out</a>
@@ -66,7 +66,7 @@
                                     <a href="/edit/<%=escena.id%>"><i class="fa-solid fa-pen-to-square icon"></i></a> 
                                    
                                
-                                    <button type="button" class="btn" style="padding: 0px;" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-regular fa-trash-can icon"></i></button>
+                                    <button type="button" class="btn" style="padding: 0px;" data-bs-toggle="modal" data-bs-target="#exampleModal<%=escena.id%>"><i class="fa-regular fa-trash-can icon"></i></button>
                                     
                                     <%}%>
                                    <a href="/game/<%=escena.json %>"><i class="fa-regular fa-circle-play icon"></i></a>
@@ -79,7 +79,7 @@
             </div>
 
       <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="exampleModal<%=escena.id%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header border-bottom-0">

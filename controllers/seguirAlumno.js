@@ -79,9 +79,11 @@ exports.escenas = async (req, res, next) => {
 
 exports.answers = async (req, res, next) => {
     try {
+        console.log("resp: " + req.params.type + "  hehhehe " + req.params.json)
         let game = await models.Scene.findOne({where:{json: req.params.json}})
         console.log("respuuuuuuu")
         console.log("resp: " + req.body.answer)
+        
 
         //Check if there is already a saved answer
         let answerExist = await models.Answer.findOne({where:{game: game.id, scene: req.body.scene, question: req.body.question}})
@@ -93,6 +95,9 @@ exports.answers = async (req, res, next) => {
                 question: req.body.question,
                 answer: req.body.answer,
             });
+            if(req.params.type === "create" )
+                res.redirect('/createShow/true/' + req.params.json);
+
             res.redirect('/edit/'+game.id);
         }
         else{
@@ -106,6 +111,9 @@ exports.answers = async (req, res, next) => {
         }
 
         await models.Answer.create(correctAnswer);
+        
+        if(req.params.type === "create" )
+            res.redirect('/createShow/true/' +  req.params.json);
         res.redirect('/edit/'+game.id);
     }
     } catch (e) {

@@ -10,7 +10,12 @@ exports.game = async (req, res, next) => {
             game: scene.id,
         } });
         //console.log("req.load.scene: " + req.load.scene.id)
-        req.session.attempt = answer[answer.length-1].attempt +1;
+        console.log(answer[answer.length-1])
+        if(answer[answer.length-1]!==undefined)
+            req.session.attempt = answer[answer.length-1].attempt +1;
+        else{
+            req.session.attempt = 1;
+        }
         console.log("attempt: " + req.session.attempt)
         res.render('game')
     } catch (e) {
