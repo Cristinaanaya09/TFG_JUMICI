@@ -109,10 +109,13 @@
                               </tr>
                             </thead>
                             <tbody>
+                              <%let attempt =[]%>  
                               <% for ( let answer of list) {%>  
                                 <% if (answer.user===user.id) {%>
                                   <% if ( answer.game===scene.id) {%>
-                                    <% if ( answer1.attempt===answer.attempt) {%>
+                                    <%if(attempt.length===0 || attempt.includes(answer))%>
+                                      <%attempt.push(answer)%>
+                                   
                                     
                                   <tr>
                                     <% for ( let answer1 of list) {%>  
