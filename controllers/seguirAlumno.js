@@ -95,6 +95,19 @@ exports.answers = async (req, res, next) => {
                 question: req.body.question,
                 answer: req.body.answer,
             });
+
+            //Update answers from users
+            let userAnswers = await models.UserAnswer.findAll({where:{game: game.id, scene: req.body.scene, question: req.body.question}})
+            for(let userAnswer of userAnswers){
+                if(userAnswer.answer === req.body.answer) {
+                    userAnswer.correct = 1; 
+                    userAnswer.save();         
+                }else{
+                    userAnswer.correct = 0; 
+                    userAnswer.save();       
+                }
+            } 
+
             if(req.params.type === "create" )
                 res.redirect('/createShow/true/' + req.params.json);
 

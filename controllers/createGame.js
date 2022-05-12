@@ -24,9 +24,7 @@ exports.createShow = async (req, res, next) => {
         console.log(req.params.question === "true")
         if (req.params.question === "true") {
             answer = true;
-            if (req.params.json !== null) {
-
-
+            if (req.params.json !== null || req.params.json !== undefined) {
                 scene = await models.Scene.findOne({ where: { json: req.params.json } });
                 correctAnswers = await models.Answer.findAll({where: {game: scene.id}})
                 const jsonAction = require("../public/game/JUMICI/scenes/" + req.params.json);
@@ -86,7 +84,14 @@ exports.crear = async (req, res, next) => {
             message = true;
             res.render('create', { json, filenames, images, answer, message });
         }
-
+        console.log("AQUIII")
+        console.log(json.sceneArray)
+        console.log("AQUIII")
+        console.log(json.sceneArray[0])
+        console.log("AQUIII")
+        console.log(json.sceneArray[0].test)
+        console.log("AQUIII")
+        console.log(json.sceneArray[1].test)
         //Create new game
         //Check if there is an image
         if (req.body.image.length === 0) {

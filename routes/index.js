@@ -73,7 +73,7 @@ router.get('/delete/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.delete
 
 
 
-router.get('/edit/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.showEdit);
+router.get('/edit/:sceneId(\\d+)/:message?', isLoggedIn, isAdmin, indexController.showEdit);
 router.post('/edit/:sceneId(\\d+)', isLoggedIn, isAdmin, indexController.edit);
 
 /////////////////////////CREATE/////////////////////////////

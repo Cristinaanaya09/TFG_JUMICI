@@ -22,29 +22,43 @@ exports.resultados = async (req, res, next) => {
 
         }
 
-        /*for (let l of list) {
-            console.log("PARTEE")
-            console.log(l)
-        }
-        console.log(list.length)*/
-        /*Sav corrects for user */
-    
+
+
+
         let scenes = await models.Scene.findAll();
         let users = await models.User.findAll();
-        
+
+        /******CORRECT ANSWERS******/
         let corrects = [];
-        for (let person of users) {
-            for (let scene of scenes) {
-                let totalAns = await models.UserAnswer.findAll({ where: { user: person.id, game: scene.id, correct: 1 } });
-                let total = {
-                    total: totalAns.length,
-                    user: person.id,
-                    scene: scene.id
+        for (let answer of list) {
+            let n = 0;
+            for (let i = 0; i < answer.length; i++) {
+                if (answer[i].correct === 1) {
+                    ++n;
                 }
-                corrects.push(total);
+                let game = await models.Scene.findOne({ where: { id: answer[i].game } })
+                const jsonAction = require("../public/game/JUMICI/scenes/" + game.json);
+                const json = require("../public/game/JUMICI/languages/" + jsonAction.language + '.json');
+                let totalGame = 0;
+                for (let part of json.sceneArray) {
+                    if (part.test !== undefined && part.test !== null) {
+                        totalGame += part.test.length;
+                    }
+                }
+                if (i === answer.length - 1) {
+                    let m = {
+                        total: n,
+                        user: answer[i].user,
+                        scene: answer[i].game,
+                        totalGame: totalGame,
+                        attempt: answer[i].attempt
+                    }
+                    corrects.push(m);
+                }
             }
-       
         }
+
+
         res.render('resultados', { list, users, scenes, corrects });
     } catch (e) {
         console.log("ERROR: " + e)
@@ -170,18 +184,33 @@ exports.filter = async (req, res, next) => {
             }
         }
 
-
-        /*Sav corrects for user */
+        /******CORRECT ANSWERS******/
         let corrects = [];
-        for (let person of users) {
-            for (let scene of scenes) {
-                let totalAns = await models.UserAnswer.findAll({ where: { user: person.id, game: scene.id, correct: 1 } });
-                let total = {
-                    total: totalAns.length,
-                    user: person.id,
-                    scene: scene.id
+        for (let answer of list) {
+            let n = 0;
+            for (let i = 0; i < answer.length; i++) {
+                if (answer[i].correct === 1) {
+                    ++n;
                 }
-                corrects.push(total);
+                let game = await models.Scene.findOne({ where: { id: answer[i].game } })
+                const jsonAction = require("../public/game/JUMICI/scenes/" + game.json);
+                const json = require("../public/game/JUMICI/languages/" + jsonAction.language + '.json');
+                let totalGame = 0;
+                for (let part of json.sceneArray) {
+                    if (part.test !== undefined && part.test !== null) {
+                        totalGame += part.test.length;
+                    }
+                }
+                if (i === answer.length - 1) {
+                    let m = {
+                        total: n,
+                        user: answer[i].user,
+                        scene: answer[i].game,
+                        totalGame: totalGame,
+                        attempt: answer[i].attempt
+                    }
+                    corrects.push(m);
+                }
             }
         }
         res.render('resultados', { list, users, scenes, corrects });
@@ -219,19 +248,35 @@ exports.gameResults = async (req, res, next) => {
         /* USER FOR FILTER */
         let users = await models.User.findAll();
 
-        /* CALCULATE TOTAL CORRECTS */
-        let corrects = [];
-        for (let person of users) {
-            for (let scene of scenes) {
-                let totalAns = await models.UserAnswer.findAll({ where: { user: person.id, game: scene.id, correct: 1 } });
-                let total = {
-                    total: totalAns.length,
-                    user: person.id,
-                    scene: scene.id
-                }
-                corrects.push(total);
-            }
-        }
+         /******CORRECT ANSWERS******/
+      let corrects = [];
+      for (let answer of list) {
+          let n = 0;
+          for (let i = 0; i < answer.length; i++) {
+              if (answer[i].correct === 1) {
+                  ++n;
+              }
+              let game = await models.Scene.findOne({ where: { id: answer[i].game } })
+              const jsonAction = require("../public/game/JUMICI/scenes/" + game.json);
+              const json = require("../public/game/JUMICI/languages/" + jsonAction.language + '.json');
+              let totalGame = 0;
+              for (let part of json.sceneArray) {
+                  if (part.test !== undefined && part.test !== null) {
+                      totalGame += part.test.length;
+                  }
+              }
+              if (i===answer.length-1) {
+                  let m = {
+                      total: n,
+                      user: answer[i].user,
+                      scene: answer[i].game,
+                      totalGame: totalGame,
+                      attempt: answer[i].attempt
+                  }
+                  corrects.push(m);
+              }
+          }
+      }
 
         res.render('resultados', { list, users, scenes, corrects });
 

@@ -88,7 +88,9 @@ exports.showEdit = async (req, res, next) => {
 
         //For editing questions and answers
         let answer = true;
-        let message=true;
+        let message=false;
+        if(req.params.message==="true")
+            message=true;
         let correctAnswers = await models.Answer.findAll({where: {game: scene.id}})
         res.render('edit', { scene, images, json, answer, message, correctAnswers });
     } catch (e) {
@@ -109,7 +111,7 @@ exports.edit = async (req, res, next) => {
         //Check if there is already a game with that name
         let gameExist = await models.Scene.findAll({where: {name: scene.name}})
         if(gameExist){
-            res.redirect('/edit/' + req.load.scene.id);
+            res.redirect('/edit/' + req.load.scene.id + "/true");
         }
 
         //Edit the game

@@ -1,7 +1,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+
 <section style="overflow-x: hidden; height: inherit; display: grid;
 grid-template-rows: 7% 93%;">
+
+
   <nav class="loginNav">
     <h1>JUMICI <img src=./images/app/icon.png height="29"></h1>
     <div>
@@ -12,6 +16,7 @@ grid-template-rows: 7% 93%;">
 
 
   <div class="result">
+
     <!----------------------FILTER------------------->
     <aside class="resultaside d-flex align-items-center justify-content-start flex-column">
       <p class="pt-5 pb-3" style="font-size: xx-large; border-bottom: 1px solid; width: 80%;"><b>FILTER</b></p>
@@ -88,13 +93,6 @@ grid-template-rows: 7% 93%;">
                               <%=scene.name%>
                             </div>
                             <div class="li"></div>
-                            <div class="li">
-                              <%for ( let correct of corrects) {%>
-                                <%if(correct.user === user.id && correct.scene ===scene.id){%>
-                                  <%=correct.total%>/<%=list.length%>
-                                <%}%>
-                              <%}%>
-                            </div>
                             <i class="bi bi-caret-down-fill" style="color: white"></i>
                           </ul>
 
@@ -103,13 +101,23 @@ grid-template-rows: 7% 93%;">
                       
                       <div id="collapse<%=i%><%=j%>" class="accordion-collapse collapse">
                         <div class="card-body">
-                         
+                         <!-----NUMBER OF CORRECT ANSWERS------->
                           <% for ( let answers of list) {%> 
+                            <% if (answers.length !== 0) {%>
                             <% if (answers[0].user === user.id) {%>
                               <% if (answers[0].game === scene.id) {%> 
                                 <div class="alert p-2 mb-1" role="alert" style="color: #ffffff;
                                 background-color: #055160;">
-                                  ATTEMPT <%=answers[0].attempt%></div>
+                                  ATTEMPT <%=answers[0].attempt%>  
+                                  <div class="li">
+                                    <%for ( let correct of corrects) {%>
+                                      <%if(correct.user === user.id && correct.scene ===scene.id && answers[0].attempt === correct.attempt){%>
+                                        <%=correct.total%>/<%=correct.totalGame%>
+                                        <%break;%>
+                                      <%}%>
+                                    <%}%>
+                                  </div>
+                                </div>
                               
                           <table class="table table-hover">
                             <thead>
@@ -158,14 +166,15 @@ grid-template-rows: 7% 93%;">
                           <%}%>
                           <%}%>
                                   <%}%>
+                                  <%}%>
                                    
                         </div>
                       </div>
                     </div>
                     <%}%>
-                        <%}%>
+                       
             </div>
-        
+            <%}%>
           </div>
       </div>
     </div>
