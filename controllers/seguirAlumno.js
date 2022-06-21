@@ -63,19 +63,19 @@ exports.seguimiento = async (req, res, next) => {
 
 }
 
-exports.escenas = async (req, res, next) => {
-    try {
-        console.log("ESCENA")
-        console.log("escenaaa cargada: " + req.load.scene)
-        /*let scene = await models.Scene.findAll({where: {name: req.body.name}});
-        if(scene!==null)
-            await models.Scene.create(req.body);*/
-        res.end();
-    } catch (e) {
-        console.log("ERROR: " + e)
-    }
+// exports.escenas = async (req, res, next) => {
+//     try {
+//         console.log("ESCENA")
+//         console.log("escenaaa cargada: " + req.load.scene)
+//         /*let scene = await models.Scene.findAll({where: {name: req.body.name}});
+//         if(scene!==null)
+//             await models.Scene.create(req.body);*/
+//         res.end();
+//     } catch (e) {
+//         console.log("ERROR: " + e)
+//     }
 
-}
+// }
 
 exports.answers = async (req, res, next) => {
     try {
@@ -95,6 +95,18 @@ exports.answers = async (req, res, next) => {
                 question: req.body.question,
                 answer: req.body.answer,
             });
+        } else{
+
+            //Create answer
+            let correctAnswer = {
+                game: game.id,
+                scene: req.body.scene,
+                question: req.body.question,
+                answer: req.body.answer,
+            }
+
+            await models.Answer.create(correctAnswer);
+        }
 
             //Update answers from users
             let userAnswers = await models.UserAnswer.findAll({where:{game: game.id, scene: req.body.scene, question: req.body.question}})
@@ -107,28 +119,11 @@ exports.answers = async (req, res, next) => {
                     userAnswer.save();       
                 }
             } 
-
-            if(req.params.type === "create" )
-                res.redirect('/createShow/true/' + req.params.json);
-
-            res.redirect('/edit/'+game.id);
-        }
-        else{
-
-        //Create answer
-        let correctAnswer = {
-            game: game.id,
-            scene: req.body.scene,
-            question: req.body.question,
-            answer: req.body.answer,
-        }
-
-        await models.Answer.create(correctAnswer);
-        
+    
         if(req.params.type === "create" )
             res.redirect('/createShow/true/' +  req.params.json);
         res.redirect('/edit/'+game.id);
-    }
+    
     } catch (e) {
         console.log("ERROR: " + e)
     }

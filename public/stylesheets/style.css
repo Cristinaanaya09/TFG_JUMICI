@@ -192,6 +192,10 @@ nav{
     align-items: center;
 
 }
+.indexCard{
+    min-width: 300px;
+    max-width: 500px!important;
+}
 
 .createGame:hover{
     background-color: #2f9bb7!important;
@@ -285,6 +289,14 @@ nav{
 .result{
     display: grid;
 }
+.botonFilter{
+    width: 100%!important;
+    background-color: #4891c4!important;
+    border-radius: 0px!important;
+    color: white!important;
+    position: fixed;
+    z-index: 3;
+}
 
 .resultaside{
     /*background-image: url(https://thumbs.dreamstime.com/b/fondo-azul-abstracto-de-azul-marino-elegante-30802629.jpg);*/
@@ -329,21 +341,6 @@ nav{
     font-size: medium;
 }
 
-
-/*******************GAME********************/
-
-/* 
-#temporizador{
-    margin: 4px;
-    padding: 1px;
-    padding-left: 8px;
-    padding-right: 8px;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 17px;
-    color: white;
-    text-align: center;
-}
-*/
 .card{
     margin: 2em!important;
     width: 90%!important;
@@ -352,149 +349,7 @@ nav{
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 3px 4px rgb(0 0 0 / 34%); 
     position: initial!important;
 }
-/*
-a{
-    text-decoration: none !important;
-    color: black !important;
-}
 
-.card-text{
-    font-size: medium;
-}
-
-#game {
-    display: grid;
-    grid-template-rows: 7,4% 92,6%;
-    width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-}
-
-
-/* Canvas characteristics */
-/* #canvas{
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 4% 44% 4% 44% 4%;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(60,60,60);
-} */
-/* DIALOG VIEW */
-/* Character characteristics and position for animations*/
-/* .character{
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    transition: right 1s,opacity 0.75s;
-    position: relative;
-    right: 0;
-} */
-/* Left character */
-/* #left{
-    user-select: none;
-    grid-column: 2/span 1;
-    grid-row: 1;
-} */
-/* Right character */
-/* #right{
-    user-select: none;
-    grid-column: 4/span 1;
-    grid-row: 1;
-} */
-/* Out and Center positions and opacity for both characters*/
-/* .out#left{right: 48vw; opacity: 0;}
-.out#right{right: -48vw; opacity: 0;}
-.center#left{right: -50%;}
-.center#right{right: 50%;}
-/*Image related characteristics*/
-/* .character img{
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 100%;
-}  */
-
-/* Background characteristics */
-/* #background{
-    opacity:0;
-    transition: opacity 1s;
-    grid-column: 1/13;
-    grid-row: 1/span 1; 
-    background-color: rgb(60,60,60);
-}
-#background img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-/* Dialog box characteristics */
-/* #dialog{
-    position: relative;
-    top: 0%;
-    transition: top 1s,opacity 0.75s;
-    color: white;
-    text-align: justify;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    grid-column: 1/6;
-    grid-row: 2;
-    background-color: rgb(20, 20, 20);
-    margin: 20px;
-    padding: 2%;
-}
-.out#dialog{top: 100%; opacity: 0;} */
-
-/* TEST VIEW */
-/* Test caracteristics */
-/* #test{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    top: 0%;
-    transition: top 1s,opacity 0.75s;
-    box-sizing: border-box;
-    color: white;
-    text-align: justify;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    grid-column: 1/6;
-    grid-row: 1/3;
-    background-color: rgb(20, 20, 20);
-    margin: 20px;
-    padding: 2%;
-}
-.out#test{top: 100%; opacity: 0;}
-#answers{
-    display: grid;
-    height: 100%;
-}
-#question{
-    padding: 1%;
-}
-.test-button{
-    display: flex;
-    color: white;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    background-color: rgb(20, 20, 20);
-    border: 5px solid rgb(40, 40, 40);
-    margin: 2%;
-    padding: 2%;
-}
-.test-button:hover{
-    background-color: rgb(30, 30, 30);
-    border: 5px solid rgb(0, 140, 140);
-}
-.test-button:active{
-    background-color: rgb(40, 40, 40);
-    border: 5px solid cyan;
-}
-*/
 #messageMal{
     background-color: #f72c2cbf;
     padding: 5px;
@@ -505,6 +360,59 @@ a{
     font-family: unset;
 }
 
+/*******************************CREATE*******************************/
+.circuloCreate {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: orange;
+    border: 2px solid #765d30;
+    font-weight: 700;
+    color: #ffffff;
+}
+.circulo {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    border: 2px solid blue;
+}
+.background{
+    background-image: url(https://ak.picdn.net/shutterstock/videos/1031936000/thumb/8.jpg?ip=x480);
+    height: 100%;
+}
+
+.bodyCreate{
+    background-image: url(https://ak.picdn.net/shutterstock/videos/1031936000/thumb/8.jpg?ip=x480);
+    overflow: hidden;
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 8% 92%;
+}
+.createAside{
+    background-color: #315f8e; 
+    overflow: scroll; 
+    min-height:auto; 
+    overflow-x: hidden;
+}
+.createjson{
+    display: grid;
+}
+
+.createBoton{
+    margin-left: 20px!important; 
+    float: right !important; 
+    color: #ffbb3b!important; 
+    border-color: #ffbb3b!important;
+}
+
+.graphicsBody{
+    height: 100%;
+    display: grid; 
+    grid-template-rows: 7% 93%;
+   
+}
 /*
 #blankedMessage{
     opacity: 0;
@@ -516,7 +424,7 @@ a{
 /*div{
     font-size: calc(14px + 1vw);
 }*/
-/**********************RESULTADOS******************/
+
 
 /*****************COLOCACIÓN***************************/
 /* Portrait and Landscape changes */
@@ -540,6 +448,22 @@ a{
     }
     .editCard{
         grid-template-columns: 40% 60%;
+    }
+    .createjson{
+        height: 100%;
+        grid-template-columns: 35% 65%;
+    }
+    .navBot{
+        flex-direction:row;
+    }
+    .botonFilter{
+        visibility: hidden;
+    }
+    .createBoton{
+        margin: 1em!important;
+    }
+    .graphics{
+        flex-direction: row;
     }
 }
 @media (orientation: Portrait) {
@@ -566,8 +490,8 @@ a{
         width: 81%;
     }
     .result{
-        display: unset;
         font-size: small;
+        grid-template-rows: 0% 100%;
         visibility: visible;
     }
     .resultaside{
@@ -578,7 +502,33 @@ a{
     .m-5{
         margin: 3px !important;
     }
-    .editCard{
-       
+    .createjson{
+        grid-template-columns: 0% 100%;
+        overflow: scroll!important;
+    }
+    .navBot{
+        flex-direction: column;
+    }
+    .createBotons{
+        flex-direction: column;
+    }
+    .createBoton{
+        margin-top: 1em!important;
+        margin-bottom: 1.5em;
+        width: fit-content!important;
+    }
+    .botonAside{
+        display: grid;
+        grid-template-rows: 7% 93%;
+    }
+    .graphics{
+        flex-direction: column;
+    }
+    .graf{
+        max-width: 95%;
+    }
+    .cardMov{
+        margin: 0px!important;
+        align-self: center;
     }
 }

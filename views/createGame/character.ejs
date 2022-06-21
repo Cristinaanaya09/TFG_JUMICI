@@ -1,0 +1,589 @@
+<div class="bodyCreate" id="characterView">
+<div>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top loginNav p-0" style="height: 8%;">
+        <!-- Navbar content -->
+        <div class="container-fluid d-flex justify-content-between" style="background-color:#0c0827;">
+            <h1>JUMICI <img src=/images/app/icon.png alt="Scene One" height="29"></h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!--NavBar para todos-->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    
+                    <div class="d-flex navBot">
+                        <li><a href="/createShow/false" class="btn btn-nav">Create new game</a></li>
+                        <li><a href="/index" class="btn btn-nav">Games</a></li>
+                        <li><a href="/logout" class="btn btn btn-outline-light btn-nav">Log out</a></li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+</div>
+
+
+
+<div class="botonAside">
+    <div>
+    <button class="btn btn-primary d-lg-none botonFilter" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">Toggle offcanvas</button>
+</div>
+<div class="offcanvas offcanvas-start createAside" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+    <div class="offcanvas-header createAside">
+      <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">ACTIONS</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body createAside">
+      <aside class="createAside">
+          <div id="actionView" class="d-flex flex-column align-items-center">
+              <%if(actions.length!==0){%>
+                  <% for(let i=0; i<actions.length; i++) {%>
+                      <div class="card mt-3 d-flex flex-column p-2" style="height: fit-content;">
+                          <div class="card-body d-flex flex-row">
+                              <div class="align-items-start">
+                                  <div class="circulo d-flex justify-content-center align-items-center">
+                                      <%=i+1%>
+                                  </div>
+                              </div>
+                              <div class="px-3 text-start">
+                                  <p class="mx-2 text-center"><b>ACTION: <%=actions[i][0]%></b> </p>
+                                  <div>
+                                      <%if(actions[i][0]==="start"){%>
+                                          <div><b>Name: </b> <%=actions[i][1]%></div>
+                                          <div><b>JSON Dialog: </b> <%=actions[i][2]%></div>
+                                          <br>
+                                      <%}%>
+                                      <%if(actions[i][0]==="test"){%>
+                                          <b>
+                                              <%=jsonFile.sceneArray[actions[i][1][0]].test[actions[i][1][1]].question%>
+                                          </b>
+                                      <%}%>
+
+                                      <%if(actions[i][0]==="dialog"){%>
+                                          <div>
+                                              <b>
+                                                  <%=jsonFile.sceneArray[actions[i][1][1]].dialog[actions[i][1][2]].speaker%>
+                                              </b>
+                                              <div>
+                                                  <%=jsonFile.sceneArray[actions[i][1][1]].dialog[actions[i][1][2]].message%>
+                                              </div>
+                                          </div>
+                                          <%if(actions[i-1][1][0]===2){%>
+                                              <div>
+                                                  <b>
+                                                      <%=jsonFile.sceneArray[actions[i][1][4]].dialog[actions[i][1][5]].speaker%>
+                                                  </b>
+                                                  <div>
+                                                      <%=jsonFile.sceneArray[actions[i][1][4]].dialog[actions[i][1][5]].message%>
+                                                  </div>
+                                              </div>
+
+                                          <%}%>
+                                      <%}%>
+
+                                      <%if(actions[i][0]==="loadCharacter"){%>
+                                          <%if(actions[i][1][0]===2){%>
+                                              <div>
+                                                  <div class="border-bottom border-primary">
+                                                      CHARACTER
+                                                      1:</div>
+                                                  <p>
+                                                      <b>Photo:</b>
+                                                      <%=actions[i][1][1]%>
+                                                  </p>
+                                                  <p>
+                                                      <b>Position: </b>
+                                                      <%=actions[i][1][2]%>
+                                                  </p>
+                                              </div>
+                                              <div>
+                                                  <div class="border-bottom border-primary">
+                                                      CHARACTER
+                                                      2:</div>
+                                                  <p>
+                                                      <b>Photo:</b>
+                                                      <%=actions[i][1][3]%>
+                                                  </p>
+                                                  <p>
+                                                      <b>Position: </b>
+                                                      <%=actions[i][1][4]%>
+                                                  </p>
+                                              </div>
+                                              <%}else{%>
+                                                  <div>
+                                                      <p>
+                                                          <b>Photo:</b>
+                                                          <%=actions[i][1][1]%>
+                                                      </p>
+                                                      <p>
+                                                          <b>Position: </b>
+                                                          <%=actions[i][1][2]%>
+                                                      </p>
+                                                  </div>
+                                              <%}%>
+                                          <%}%>
+                                          <%if(actions[i][0]==="background"){%>
+                                              <div>
+                                                  <p>
+                                                      <b>Photo:</b>
+                                                      <%=actions[i][1]%>
+                                                  </p>
+                                              </div>
+                                          <%}%>
+
+
+                                  </div>
+                              </div>
+                          </div>
+                          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteActi<%=i%>" data-bs-backdrop="false" style="width:fit-content; align-self: center;">
+                            Delete
+                        </button>
+                   
+                        <br>
+                                      
+                  
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteActi<%=i%>" tabindex="-1"  data-bs-backdrop="false"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body" style="color:black ;">            
+                                        If you delete this action, all actions that have already been created after this action will be deleted. 
+                                        <div><b>Do you want to delete this action and the next ones?</b></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <form action="/deleteAction" method="post">
+                                            <input type="hidden" name=index value="<%=i%>">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                  <%}%>
+              <%}else{%>
+                  <div>
+                      <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                          <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                              <path
+                                  d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                          </symbol>
+                      </svg>
+
+                      <div class="alert alert-primary d-flex align-items-center mt-3" role="alert">
+                          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
+                              aria-label="Info:">
+                              <use xlink:href="#info-fill" />
+                          </svg>
+                          <div>
+                              There is no action saved.
+                          </div>
+                      </div>
+                  </div>
+              <%}%>
+          </div>
+      </aside>
+    </div>
+  </div>
+
+
+
+
+
+    <div class="createjson">
+        <aside class="createAside">
+            <div id="actionView" class="d-flex flex-column align-items-center">
+                <%if(actions.length!==0){%>
+                    <% for(let i=0; i<actions.length; i++) {%>
+                        <div class="card mt-3 d-flex flex-column p-2" style="height: fit-content;">
+                            <div class="card-body d-flex flex-row">
+                                <div class="align-items-start">
+                                    <div class="circulo d-flex justify-content-center align-items-center">
+                                        <%=i+1%>
+                                    </div>
+                                </div>
+                                <div class="px-3 text-start">
+                                    <p class="mx-2 text-center">
+                                        <b>ACTION: <%=actions[i][0]%></b> 
+                                    </p>
+                                    <div>
+                                        <%if(actions[i][0]==="start"){%>
+                                            <div><b>Name: </b> <%=actions[i][1]%></div>
+                                            <div><b>JSON Dialog: </b> <%=actions[i][2]%></div>
+                                            <br>
+                                        <%}%>
+                                        <%if(actions[i][0]==="test"){%>
+                                            <b>
+                                                <%=jsonFile.sceneArray[actions[i][1][0]].test[actions[i][1][1]].question%>
+                                            </b>
+                                        <%}%>
+
+                                        <%if(actions[i][0]==="dialog"){%>
+                                            <div>
+                                                <b>
+                                                    <%=jsonFile.sceneArray[actions[i][1][1]].dialog[actions[i][1][2]].speaker%>
+                                                </b>
+                                                <div>
+                                                    <%=jsonFile.sceneArray[actions[i][1][1]].dialog[actions[i][1][2]].message%>
+                                                </div>
+                                            </div>
+                                            <%if(actions[i-1][1][0]===2){%>
+                                                <div>
+                                                    <b>
+                                                        <%=jsonFile.sceneArray[actions[i][1][4]].dialog[actions[i][1][5]].speaker%>
+                                                    </b>
+                                                    <div>
+                                                        <%=jsonFile.sceneArray[actions[i][1][4]].dialog[actions[i][1][5]].message%>
+                                                    </div>
+                                                </div>
+
+                                            <%}%>
+                                        <%}%>
+
+                                        <%if(actions[i][0]==="loadCharacter"){%>
+                                            <%if(actions[i][1][0]===2){%>
+                                                <div>
+                                                    <div class="border-bottom border-primary">
+                                                        CHARACTER
+                                                        1:</div>
+                                                    <p>
+                                                        <b>Photo:</b>
+                                                        <%=actions[i][1][1]%>
+                                                    </p>
+                                                    <p>
+                                                        <b>Position: </b>
+                                                        <%=actions[i][1][2]%>
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <div class="border-bottom border-primary">
+                                                        CHARACTER
+                                                        2:</div>
+                                                    <p>
+                                                        <b>Photo:</b>
+                                                        <%=actions[i][1][3]%>
+                                                    </p>
+                                                    <p>
+                                                        <b>Position: </b>
+                                                        <%=actions[i][1][4]%>
+                                                    </p>
+                                                </div>
+                                                <%}else{%>
+                                                    <div>
+                                                        <p>
+                                                            <b>Photo:</b>
+                                                            <%=actions[i][1][1]%>
+                                                        </p>
+                                                        <p>
+                                                            <b>Position: </b>
+                                                            <%=actions[i][1][2]%>
+                                                        </p>
+                                                    </div>
+                                                <%}%>
+                                            <%}%>
+                                            <%if(actions[i][0]==="background"){%>
+                                                <div>
+                                                    <p>
+                                                        <b>Photo:</b>
+                                                        <%=actions[i][1]%>
+                                                    </p>
+                                                </div>
+                                            <%}%>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete" style="width:fit-content; align-self: center;">
+                                    Delete
+                                </button>
+                           
+                                <br>
+                                              
+                          
+                          <!-- Modal -->
+                          <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-body" style="color:black ;">            
+                                    If you delete this action, all actions that have already been created after this action will be deleted. 
+                                    <div><b>Do you want to delete this action and the next ones?</b></div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  <form action="/deleteAction" method="post">
+                                    <input type="hidden" name=index value="<%=i%>">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+
+
+                    <%}%>
+                <%}else{%>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                            <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                            </symbol>
+                        </svg>
+
+                        <div class="alert alert-primary d-flex align-items-center mt-3" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
+                                aria-label="Info:">
+                                <use xlink:href="#info-fill" />
+                            </svg>
+                            <div>
+                                There is no action saved.
+                            </div>
+                        </div>
+                    </div>
+                <%}%>
+            </div>
+            
+        </aside>
+
+
+
+
+        <div  class="d-flex justify-content-center align-items-center">
+
+
+            <!--------------------------NUMBER OF CHARACTERS------------------------>
+            <% if(!number){%>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/characterView">
+                            <div class="fs-4 text-center">How many characters do you want to appear in this scene?</div>
+                            <br>
+                            <div class="m-2 d-flex flex-row justify-content-center align-items-center fs-5">
+                                <div class="form-check px-4" style="margin-left:1em ;">
+                                    <input class="form-check-input" type="radio" name="number" id="flexRadioDefault1"
+                                        value="1" required>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        1
+                                    </label>
+                                </div>
+                                <div class="form-check px-4">
+                                    <input class="form-check-input" type="radio" name="number" value="2"
+                                        id="flexRadioDefault2" required>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        2
+                                    </label>
+                                </div>
+                                <div class="form-check px-4">
+                                    <input class="form-check-input" type="radio" name="number" value="none"
+                                        id="flexRadioDefault4" checked required>
+                                    <label class="form-check-label" for="flexRadioDefault4">
+                                        None
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary m-3" style="width:fit-content; float: right;">
+                                Next
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <%}%>
+
+
+                    <!---------------------------LOAD CHARACTERS------------------------------>
+                    <% if(number){%>
+                        <%-include('../messages')%>
+                        <div class="card card-body">
+                            <form action="/loadCharacter" method="POST">
+                                <div class="d-flex flex-column align-items-center">
+
+                                    <div style="font-variant: petite-caps;">
+                                        To choose the character you must indicate by which position of the screen you
+                                        want it to
+                                        appear.
+                                    </div>
+                                    <br>
+
+
+                                    <div class="pb-3">
+
+                                        <div class="d-flex flex-row">
+                                            <select class="form-select col-4-important"
+                                                aria-label="Default select example" style="height:fit-content"
+                                                name="character">
+                                                <% for (let char of characterImages) {%>
+                                                    <option selected>
+                                                        <%=char%>
+                                                    </option>
+                                                    <%}%>
+                                            </select>
+
+                                            <!-------------CHARACTER POSITION--------------->
+                                            <div class="m-2 d-flex flex-row" >
+                                                <div class="form-check px-4" style="margin-left:1em ;">
+                                                    <input class="form-check-input" type="radio" name="position"
+                                                        value="left" id="left" required>
+                                                    <label class="form-check-label" for="flexRadioDefault2">
+                                                        Left
+                                                    </label>
+                                                </div>
+                                                <div class="form-check px-4">
+                                                    <input class="form-check-input" type="radio" name="position"
+                                                        id="right" value="right" required>
+                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                        Right
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <%if(number==="2"){%>
+                                            <div class="d-flex flex-row">
+                                                <select class="form-select col-4-important"
+                                                    aria-label="Default select example" style="height:fit-content"
+                                                    name="character2">
+                                                    <% for (let char of characterImages) {%>
+                                                        <option selected>
+                                                            <%=char%>
+                                                        </option>
+                                                        <%}%>
+                                                </select>
+
+                                                <!-------------CHARACTER POSITION--------------->
+                                                <div class="m-2 d-flex flex-row" >
+                                                    <div class="form-check px-4" style="margin-left:1em ;">
+                                                        <input class="form-check-input" type="radio" name="position2"
+                                                            value="left" id="left2" required>
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Left
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check px-4" >
+                                                        <input class="form-check-input" type="radio" name="position2"
+                                                            id="right2" value="right" required>
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Right
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    
+                                                </div>
+
+                                                <script>
+                                                     $("input[name=position]").click(function () {   
+                                                       if($('input:radio[name=position]:checked').val() == "left"){
+                                                           console.log($('input:radio[name=position]:checked').val())
+                                                        $('input[id=right2]').attr("disabled",false);
+                                                        $("#right2").prop("checked", true);
+                                                        $('input[id=left2]').attr("disabled",true);
+                                                       }
+                                                       else{
+                                                        $('input[id=left2]').attr("disabled",false);
+                                                        $("#left2").prop("checked", true);
+                                                        $('input[id=right2]').attr("disabled",true);
+                                                       }
+                                                    });
+
+                                                </script>
+
+
+
+                                            </div>
+                                            <%}%>
+
+
+                                                <!--------------------------NEW IMAGE----------------------->
+
+                                                <br>
+                                                <div class="d-flex flex-row">
+                                                    <div class="me-4">
+                                                        If you want to use another image you can upload one by clicking
+                                                        on this button:
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary col-4"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                        style="height:fit-content">
+                                                        Load New Image
+                                                    </button>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-primary m-3"
+                                                    style="width:fit-content; align-self: flex-end">
+                                                    Next
+                                                </button>
+                            </form>
+
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">CHARACTER
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form action="/uploadfile" method="post" enctype="multipart/form-data">
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <div class="text-center" style="font-variant: petite-caps;">
+                                                        If you want to use a new image for a character you can upload it here
+                                                    </div>
+<br>
+                                                    <label for="formFile" class="mb-2">
+                                                        Upload the image of a new character
+                                                    </label>
+                                                    <input class="form-control" type="file" name="char" id="formFile" required>
+                                                    <input type="hidden" name="number" value="<%=number%>">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-success">Save
+                                                    changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+   
+    <%}%>
+
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+<script src="/game/JUMICI/scene_class.js"></script>
+<script src="/game/JUMICI/actions.js"></script>
+<script src="/game/JUMICI/createViewScene.js"></script>

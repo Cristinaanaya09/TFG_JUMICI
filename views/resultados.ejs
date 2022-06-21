@@ -1,114 +1,162 @@
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
 <section style="overflow-x: hidden; height: inherit; display: grid;
 grid-template-rows: 7% 93%;">
 
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top loginNav p-0" style="height: 7%;">
+      <!-- Navbar content -->
+      <div class="container-fluid d-flex justify-content-between" style="background-color:#0c0827;">
+          <h1>JUMICI <img src=/images/app/icon.png alt="Scene One" height="29"></h1>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
 
-  <nav class="loginNav">
-    <h1>JUMICI <img src=./images/app/icon.png height="29"></h1>
-    <div>
-      <a href="/index" class="btn btn-outline-dark btn-nav">Scenes</a>
-      <a href="/logout" class="btn btn-outline-dark btn-nav">Log out</a>
-    </div>
-  </nav>
-
-
-  <div class="result">
-
-    <!----------------------FILTER------------------->
-    <aside class="resultaside d-flex align-items-center justify-content-start flex-column">
-      <p class="pt-5 pb-3" style="font-size: xx-large; border-bottom: 1px solid; width: 80%;"><b>FILTER</b></p>
-      <form class="formFilter" action="/filter" method="post">
-        
-        <label for="exampleDataList" class="form-label">Scene Name</label>
-        <input class="form-control" list="scenelistOptions" id="exampleDataList" name="scene" placeholder="Scene Name">
-        <datalist id="scenelistOptions">
-          <% for ( let scene of scenes) {%>
-            <option value="<%=scene.name%>">
-              <%}%>
-        </datalist>
-        <label for="exampleDataList" class="form-label">Username</label>
-        <input class="form-control" list="userlistOptions" id="exampleDataList" name="user" placeholder="Username">
-        <datalist id="userlistOptions">
-          <% for ( let user of users) {%>
-            <option value="<%=user.name%>">
-              <%}%>
-        </datalist>
-        
-        <button type="submit" class="btn  mb-3" style="color: #0c0827;
-        background-color: #ffa500;
-        border-color: #0c0827;">Filter</button>
-      </form>
-    </aside>
-
-
-    <!----------------------RESULTS------------------->
-    <div class="m-5">
-      <div class="alert" role="alert" style="    color: #ffffff; background-color: #0c0827;">
-        <ul class="li">
-          <p class="li">Name</p>
-          <p class="li">Email</p>
-          <p class="li">Correct Answers</p>
-          <p class="li"></p>
-        </ul>
-      </div>
-      
-      <div class="accordion" id="myAccordion">
-        <% let i=0;%>
-        <% for ( let user of users) {%>
-          <% i = ++i%>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="heading<%=i%>">
-              <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-                data-bs-target="#collapse<%=i%>" style="background-color: #d9d3ec;
-                color: black">
-                <ul class="li">
-                  <div class="lis">
-                    <%=user.name%> <%= i%>
-                  </div>
-                  <div class="lis">
-                    <%=user.email%>
-                  </div>
-                  <div class="li"></div>
-                  <div class="li"></div>
-                  <i class="bi bi-caret-down-fill"></i>
-                </ul>
-
-              </button>
-            </h2>
-            <div id="collapse<%=i%>" class="accordion-collapse collapse">
-              <% let j=0;%>
-              <% for ( let scene of scenes) {%>
-               
+          <!--NavBar para todos-->
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <ul class="navbar-nav">
                   
-                    <% j= ++j;%>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="heading<%=i%><%=j%>">
-                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-                          data-bs-target="#collapse<%=i%><%=j%>" style="background-color: #0c0827; color: white;">
-                          <ul class="li">
-                            <div class="lis">
-                              <%=scene.name%>
-                            </div>
-                            <div class="li"></div>
-                            <i class="bi bi-caret-down-fill" style="color: white"></i>
-                          </ul>
+                  <div class="d-flex navBot">
+                            
+                    <a href="/index" class="btn btn-outline-dark btn-nav">Games</a>
+                    <a href="/logout" class="btn btn-outline-dark btn-nav">Log out</a>
+                  </div>
+              </ul>
+          </div>
+      </div>
+    </nav>
+  </div>
 
-                        </button>
-                      </h2>
-                      
-                      <div id="collapse<%=i%><%=j%>" class="accordion-collapse collapse">
-                        <div class="card-body">
-                         <!-----NUMBER OF CORRECT ANSWERS------->
-                          <% for ( let answers of list) {%> 
-                            <% if (answers.length !== 0) {%>
+  <div>
+    <a class="btn botonFilter" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" >
+      FILTER
+      <i class="bi bi-funnel-fill"></i>
+    </a>
+    <div class="result">
+      <div class="offcanvas offcanvas-start resultaside" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel"> FILTER</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <form class="formFilter" action="/filter" method="post">
+            <label for="exampleDataList" class="form-label">Scene Name</label>
+            <input class="form-control" list="scenelistOptions" id="exampleDataList" name="scene" placeholder="Scene Name">
+            <datalist id="scenelistOptions">
+              <% for ( let scene of scenes) {%>
+                <option value="<%=scene.name%>">
+                  <%}%>
+            </datalist>
+            <label for="exampleDataList" class="form-label">Username</label>
+            <input class="form-control" list="userlistOptions" id="exampleDataList" name="user" placeholder="Username">
+            <datalist id="userlistOptions">
+              <% for ( let user of users) {%>
+                <option value="<%=user.name%>">
+                  <%}%>
+            </datalist>
+          
+            <button type="submit" class="btn  mb-3" style="color: #0c0827;
+            background-color: #ffa500;
+            border-color: #0c0827;">Filter</button>
+          </form> 
+        </div>
+      </div>
+
+
+      <!----------------------FILTER------------------->
+      <div>
+        <aside class="resultaside d-flex align-items-center justify-content-start flex-column">
+          <p class="pt-5 pb-3" style="font-size: xx-large; border-bottom: 1px solid; width: 80%;"><b>FILTER</b></p>
+          <form class="formFilter" action="/filter" method="post"> 
+            <label for="exampleDataList" class="form-label">Scene Name</label>
+            <input class="form-control" list="scenelistOptions" id="exampleDataList" name="scene" placeholder="Scene Name">
+            <datalist id="scenelistOptions">
+              <% for ( let scene of scenes) {%>
+                <option value="<%=scene.name%>">
+                  <%}%>
+            </datalist>
+            <label for="exampleDataList" class="form-label">Username</label>
+            <input class="form-control" list="userlistOptions" id="exampleDataList" name="user" placeholder="Username">
+            <datalist id="userlistOptions">
+              <% for ( let user of users) {%>
+                <option value="<%=user.name%>">
+              <%}%>
+            </datalist>
+            
+            <button type="submit" class="btn  mb-3" style="color: #0c0827;
+            background-color: #ffa500;
+            border-color: #0c0827;">Filter</button>
+          </form>
+        </aside>
+      </div>
+
+      <!----------------------RESULTS------------------->
+      <div class="m-5">
+        <div class="alert" role="alert" style="    color: #ffffff; background-color: #0c0827;">
+          <ul class="li">
+            <p class="li">Name</p>
+            <p class="li">Email</p>
+            <p class="li">Correct Answers</p>
+            <p class="li"></p>
+          </ul>
+        </div>
+        
+        <div class="accordion" id="myAccordion">
+          <% let i=0;%>
+          <% for ( let user of users) {%>
+            <% i = ++i%>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading<%=i%>">
+                <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                  data-bs-target="#collapse<%=i%>" style="background-color: #d9d3ec;
+                  color: black">
+                  <ul class="li">
+                    <div class="lis">
+                      <%=user.name%>
+                    </div>
+                    <div class="lis">
+                      <%=user.email%>
+                    </div>
+                    <div class="li"></div>
+                    <div class="li"></div>
+                    <i class="bi bi-caret-down-fill"></i>
+                  </ul>
+                </button>
+              </h2>
+
+              <div id="collapse<%=i%>" class="accordion-collapse collapse">
+                <% let j=0;%>
+                <% for ( let scene of scenes) {%>                
+                  <% j= ++j;%>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading<%=i%><%=j%>">
+                    <div class="d-flex flex-row">  
+                      <a href="/graphics/<%=scene.json%>" class="btn"><i class="bi bi-info-circle-fill fs-4"></i></a>
+                      <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#collapse<%=i%><%=j%>" style="background-color: #0c0827; color: white;">
+                        <ul class="li">
+                          <div class="lis">
+                            <%=scene.name%>
+                          </div>
+                          <div class="li"></div>
+                          <i class="bi bi-caret-down-fill" style="color: white"></i>
+                        </ul>
+                      </button>
+                    </div>
+                    </h2>
+                        
+                    <div id="collapse<%=i%><%=j%>" class="accordion-collapse collapse">
+                      <div class="card-body">
+                      <!-----NUMBER OF CORRECT ANSWERS------->
+                        <% for ( let answers of list) {%> 
+                          <% if (answers.length !== 0) {%>
                             <% if (answers[0].user === user.id) {%>
                               <% if (answers[0].game === scene.id) {%> 
-                                <div class="alert p-2 mb-1" role="alert" style="color: #ffffff;
+                                <div class="alert p-2 mb-1 d-flex flex-row justify-content-between" role="alert" style="color: #ffffff;
                                 background-color: #055160;">
-                                  ATTEMPT <%=answers[0].attempt%>  
+                                  <div>ATTEMPT <%=answers[0].attempt%>  </div>
                                   <div class="li">
                                     <%for ( let correct of corrects) {%>
                                       <%if(correct.user === user.id && correct.scene ===scene.id && answers[0].attempt === correct.attempt){%>
@@ -118,66 +166,61 @@ grid-template-rows: 7% 93%;">
                                     <%}%>
                                   </div>
                                 </div>
-                              
-                          <table class="table table-hover">
-                            <thead>
-                              <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Question</th>
-                                <th scope="col">Answer</th>
-                                <th scope="col">Time</th>
-                                <th scope="col">Correct</th>
-
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <% for (let answer of answers) {%>
-                  
-                                  <tr>
-                                     <th scope="row">
-                                      <%=answer.updatedAt%>
-                                    </th>
-                                    <td>
-                                      <%=answer.question%>
-                                    </td>
-                                    <td>
-                                      <%=answer.answer%>
-                                    </td>
-                                    <td>
-                                      <%=answer.time%>
-                                    </td>
-                                    <%if(answer.correct){%>
-                                      <td><img src=https://www.pngmart.com/files/3/Green-Tick-Transparent-PNG.png
-                                          height=10%>
-                                      </td>
-                                      <% }else {%>
-                                        <td><img
-                                            src=https://starpng.com/public/uploads/preview/cross-png-cross-png-101576822774gb15sk8uvv.png
-                                            height=10%>
+                                
+                                <table class="table table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Date</th>
+                                      <th scope="col">Question</th>
+                                      <th scope="col">Answer</th>
+                                      <th scope="col">Time</th>
+                                      <th scope="col">Correct</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <% for (let answer of answers) {%>
+                                      <tr>
+                                        <th scope="row">
+                                          <%=answer.updatedAt%>
+                                        </th>
+                                        <td>
+                                          <%=answer.question%>
                                         </td>
+                                        <td>
+                                          <%=answer.answer%>
+                                        </td>
+                                        <td>
+                                          <%=answer.time%>
+                                        </td>
+                                        <%if(answer.correct){%>
+                                          <td><img src=https://www.pngmart.com/files/3/Green-Tick-Transparent-PNG.png
+                                              height=10%>
+                                          </td>
+                                        <% }else {%>
+                                          <td><img
+                                              src=https://starpng.com/public/uploads/preview/cross-png-cross-png-101576822774gb15sk8uvv.png
+                                              height=10%>
+                                          </td>
                                         <%}%>
-                                  </tr>
-                                  <%}%>
-                                  
-                                   
-                                    
-                            </tbody>
-                          </table>
+                                      </tr>
+                                    <%}%>                                          
+                                  </tbody>
+                                </table>
+                              <%}%>
+                            <%}%>
                           <%}%>
-                          <%}%>
-                                  <%}%>
-                                  <%}%>
-                                   
-                        </div>
+                        <%}%>                   
                       </div>
                     </div>
-                    <%}%>
-                       
+
+
+                  </div>
+                <%}%>         
+              </div>
             </div>
-            <%}%>
-          </div>
+          <%}%>
+        </div>
       </div>
     </div>
-
-
+  </div>
 </section>

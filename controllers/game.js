@@ -7,7 +7,7 @@ exports.game = async (req, res, next) => {
 
         let scene = await models.Scene.findOne({ where: {json: req.params.json}});
         let answer = await models.UserAnswer.findAll({ where: { 
-            game: scene.id,
+            game: scene.id, user: req.user.id
         } });
         //console.log("req.load.scene: " + req.load.scene.id)
         console.log(answer[answer.length-1])

@@ -38,11 +38,12 @@ exports.resultados = async (req, res, next) => {
                 }
                 let game = await models.Scene.findOne({ where: { id: answer[i].game } })
                 const jsonAction = require("../public/game/JUMICI/scenes/" + game.json);
-                const json = require("../public/game/JUMICI/languages/" + jsonAction.language + '.json');
+                const json = require("../public/game/JUMICI/languages/" + jsonAction.language);
                 let totalGame = 0;
-                for (let part of json.sceneArray) {
-                    if (part.test !== undefined && part.test !== null) {
-                        totalGame += part.test.length;
+                let jsonIndex = [];
+                for (let i = 0; i < jsonAction.actionKeys.length; i++) {
+                    if (jsonAction.actionKeys[i] === "activateTestView") {
+                        jsonIndex.push(jsonAction.actionArguments[i]);
                     }
                 }
                 if (i === answer.length - 1) {
@@ -50,7 +51,7 @@ exports.resultados = async (req, res, next) => {
                         total: n,
                         user: answer[i].user,
                         scene: answer[i].game,
-                        totalGame: totalGame,
+                        totalGame: jsonIndex.length,
                         attempt: answer[i].attempt
                     }
                     corrects.push(m);
@@ -194,11 +195,12 @@ exports.filter = async (req, res, next) => {
                 }
                 let game = await models.Scene.findOne({ where: { id: answer[i].game } })
                 const jsonAction = require("../public/game/JUMICI/scenes/" + game.json);
-                const json = require("../public/game/JUMICI/languages/" + jsonAction.language + '.json');
+                const json = require("../public/game/JUMICI/languages/" + jsonAction.language);
                 let totalGame = 0;
-                for (let part of json.sceneArray) {
-                    if (part.test !== undefined && part.test !== null) {
-                        totalGame += part.test.length;
+                let jsonIndex = [];
+                for (let i = 0; i < jsonAction.actionKeys.length; i++) {
+                    if (jsonAction.actionKeys[i] === "activateTestView") {
+                        jsonIndex.push(jsonAction.actionArguments[i]);
                     }
                 }
                 if (i === answer.length - 1) {
@@ -206,7 +208,7 @@ exports.filter = async (req, res, next) => {
                         total: n,
                         user: answer[i].user,
                         scene: answer[i].game,
-                        totalGame: totalGame,
+                        totalGame: jsonIndex.length,
                         attempt: answer[i].attempt
                     }
                     corrects.push(m);
@@ -248,37 +250,118 @@ exports.gameResults = async (req, res, next) => {
         /* USER FOR FILTER */
         let users = await models.User.findAll();
 
-         /******CORRECT ANSWERS******/
-      let corrects = [];
-      for (let answer of list) {
-          let n = 0;
-          for (let i = 0; i < answer.length; i++) {
-              if (answer[i].correct === 1) {
-                  ++n;
-              }
-              let game = await models.Scene.findOne({ where: { id: answer[i].game } })
-              const jsonAction = require("../public/game/JUMICI/scenes/" + game.json);
-              const json = require("../public/game/JUMICI/languages/" + jsonAction.language + '.json');
-              let totalGame = 0;
-              for (let part of json.sceneArray) {
-                  if (part.test !== undefined && part.test !== null) {
-                      totalGame += part.test.length;
-                  }
-              }
-              if (i===answer.length-1) {
-                  let m = {
-                      total: n,
-                      user: answer[i].user,
-                      scene: answer[i].game,
-                      totalGame: totalGame,
-                      attempt: answer[i].attempt
-                  }
-                  corrects.push(m);
-              }
-          }
-      }
+        /******CORRECT ANSWERS******/
+        let corrects = [];
+        for (let answer of list) {
+            let n = 0;
+            for (let i = 0; i < answer.length; i++) {
+                if (answer[i].correct === 1) {
+                    ++n;
+                }
+                let game = await models.Scene.findOne({ where: { id: answer[i].game } })
+                const jsonAction = require("../public/game/JUMICI/scenes/" + game.json);
+                const json = require("../public/game/JUMICI/languages/" + jsonAction.language);
+                let totalGame = 0;
+                let jsonIndex = [];
+                for (let i = 0; i < jsonAction.actionKeys.length; i++) {
+                    if (jsonAction.actionKeys[i] === "activateTestView") {
+                        jsonIndex.push(jsonAction.actionArguments[i]);
+                    }
+                }
+                if (i === answer.length - 1) {
+                    let m = {
+                        total: n,
+                        user: answer[i].user,
+                        scene: answer[i].game,
+                        totalGame: jsonIndex.length,
+                        attempt: answer[i].attempt
+                    }
+                    corrects.push(m);
+                }
+            }
+        }
 
         res.render('resultados', { list, users, scenes, corrects });
+
+    } catch (e) {
+        console.log("ERROR: " + e)
+    }
+}
+
+
+
+exports.graphics = async (req, res, next) => {
+    try {
+        console.log("graphics");
+
+        let game = await models.Scene.findOne({ where: { json: req.params.json } });
+        const jsonAction = require("../public/game/JUMICI/scenes/" + req.params.json);
+        json = require("../public/game/JUMICI/languages/" + jsonAction.language);
+        let options = [];
+        let list = [];
+
+
+        let index = [];
+        let jsonIndex = [];
+        for (let i = 0; i < jsonAction.actionKeys.length; i++) {
+            if (jsonAction.actionKeys[i] === "activateTestView") {
+                index.push(i);
+                jsonIndex.push(jsonAction.actionArguments[i]);
+            }
+        }
+
+
+        for (let i = 0; i < jsonIndex.length; i++) {
+            let scene = jsonIndex[i][0];
+            let question = jsonIndex[i][1];
+
+            //GRAPHIC_1
+
+            let maxAttempt = await models.UserAnswer.max('attempt', {where: { scene: scene, question: question, game: game.id }});
+            
+            console.log(game.id)
+            console.log("mmmmm");
+            console.log(maxAttempt);
+            
+            let answers =  [];
+            for(let m = 1; m <= maxAttempt; m++){
+                let ok = await models.UserAnswer.findAll({
+                    where: { scene: scene, question: question, game: game.id, correct: 1, attempt: m }
+                });
+                console.log('ok')
+                console.log(ok.length)
+                let x = await models.UserAnswer.findAll({
+                    where: { scene: scene, question: question, game: game.id, correct: 0, attempt: m }
+                });
+                answers.push([ok.length, x.length])
+            }
+            console.log(answers)
+            list.push(answers);
+            
+            let correct = await models.Answer.findOne({ where: { game: game.id, scene: scene, question: question} }); 
+            if(correct===null){
+                correct="none"
+            }
+            else{
+                correct=correct.answer;
+            }
+            //console.log(correct.answer)
+            // GRAPHIC_2 
+            let a = await models.UserAnswer.findAll({ where: { game: game.id, scene: scene, question: question, answer: 'A' } });
+            let b = await models.UserAnswer.findAll({ where: { game: game.id, scene: scene, question: question, answer: 'B' } });
+            let c = await models.UserAnswer.findAll({ where: { game: game.id, scene: scene, question: question, answer: 'C' } });
+            let d = await models.UserAnswer.findAll({ where: { game: game.id, scene: scene, question: question, answer: 'D' } });
+
+            options.push([game, scene, question, a.length, b.length, c.length, d.length, correct])
+        }
+
+
+        console.log(list.length)
+        console.log(options.length)
+        console.log(list.length === options.length)
+        //let answers = await models.UserAnswer.findAll(); //Se guardan las respuestas por usuario
+
+        res.render('graphics', { options, json, list });
 
     } catch (e) {
         console.log("ERROR: " + e)

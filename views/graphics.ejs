@@ -1,0 +1,230 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js@latest/dist/Chart.min.js"></script>
+
+
+<div class="graphicsBody">
+
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top loginNav p-0" style="height: 7%;">
+            <!-- Navbar content -->
+            <div class="container-fluid d-flex justify-content-between" style="background-color:#0c0827;">
+                <h1>JUMICI <img src=/images/app/icon.png alt="Scene One" height="29"></h1>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!--NavBar para todos-->
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <div class="d-flex navBot">
+
+                            <a href="/createShow/false" class="btn btn-nav">Create new game</a>
+                            <a href="/results" class="btn btn-nav">Student's Results</a>
+
+                            <a href="/logout" class="btn btn btn-outline-light btn-nav">Log out</a>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div>
+
+        
+        <script>
+            let $grafica;
+            let $grafica2;
+            let etiquetas = [];
+            let datos;
+            let datos2;
+            let datos3;
+            let etiquetas2;
+            let data=[];
+            let data2=[];
+        </script>
+
+        <% if (options.length>0){ %>
+            <div class="fs-3 p-2 bg-gradient" style="    background-color: #fff9ee!important;
+            border-bottom: 1px solid;
+            font-variant: petite-caps;"> 
+                Game: <b><%=options[0][0].name%></b>
+            </div>
+
+            <br>
+            <% for (let i=0; i<options.length; i++){ %>
+                <div>
+                    <div class="text-center fs-2">Question <%=i+1%></div>
+                    
+                    <div>
+                    <div class="text-center fs-4"><b>Question: </b><%=json.sceneArray[options[i][1]].test[options[i][2]].question%> 
+                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Answers
+                        </a>
+                    </div>
+                    <div class="text-center"><b>Correct Answer: </b> <%=options[i][options[i].length-1]%></div>
+                    <div>
+                        
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <div>
+                                    <div class=""><b>a: </b><%=json.sceneArray[options[i][1]].test[options[i][2]].a%></div>
+                                    <div class=""><b>b: </b><%=json.sceneArray[options[i][1]].test[options[i][2]].b%></div>
+                                    <div class=""><b>c: </b><%=json.sceneArray[options[i][1]].test[options[i][2]].c%></div>
+                                    <div class=""><b>d: </b><%=json.sceneArray[options[i][1]].test[options[i][2]].d%></div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="d-flex graphics">
+                            <div class="card p-3 cardMov">
+                                <h3>People's answers per attempt</h3>
+                                <br>
+                                <canvas id="grafica1<%=i%>" class="graf"></canvas>
+                            </div>
+                            <div class="card p-3 cardMov">
+                                <h3>Number of answers per option</h3>
+                                <br>
+                                <canvas id="grafica2<%=i%>" class="graf"></canvas>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+
+
+                <script>
+
+                    etiquetas=[];
+                    data=[];
+                    data2= [];
+                    /********************1 GRAPHIC******************/
+                    // Obtener una referencia al elemento canvas del DOM
+                    $grafica = document.querySelector("#grafica1<%=i%>");
+                    // Las etiquetas son las que van en el eje X. 
+                    console.log('holaa')
+                    console.log('<%=list[i].length%>')
+                    for(let attempt = 1; attempt <= '<%=list[i].length%>'; attempt++){
+                        etiquetas.push(attempt)
+                    }
+                    //['<%=list[0][0][0].attempt%>','<%=list[0][0][0].attempt%>', "Marzo", "Abril"];
+                    // Podemos tener varios conjuntos de datos
+                    
+                
+
+                    //CORRECT ANSWERS
+                    for(let j = 0; j< '<%=list[i].length%>'*2; j=j+2){
+                        console.log("length: " + '<%=list[i].length%>')
+                        let list = '<%=list[i]%>'; 
+                        let list2=list.split(',');
+                        console.log("ok: " + '<%=list[i]%>')
+                        console.log("ok3: " + list2)
+                        //console.log("ok2: " + list[j][0])
+                        data.push(list2[j])
+                    }
+                    datos= {
+                        label: "Correct Answers",
+                        data: data, // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
+                        borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
+                        borderWidth: 1,// Ancho del borde
+                    };
+                    for(let j = 1; j<'<%=list[i].length%>'*2; j=j+2){
+                        let list = '<%=list[i]%>';
+                        let list2=list.split(',');
+                        data2.push(list2[j])
+                    }
+
+                    //WRONG ANSWERS
+                    datos3 = {
+                        label: "Incorrect answers",
+                        data: data2, // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',// Color de fondo
+                        borderColor: 'rgba(255, 159, 64, 1)',// Color del borde
+                        borderWidth: 1,// Ancho del borde
+                    };
+
+                    new Chart($grafica, {
+                        type: 'bar',// Tipo de gráfica
+                        data: {
+                            labels: etiquetas,
+                            datasets: [
+                                datos,
+                                datos3,
+                                // Aquí más datos...
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                xAxes: [{
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Attempts'
+                                    }
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    },
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Number of answers'
+                                    }
+                                }],
+                            },
+                        }
+                    });
+
+
+
+
+                    /************2 GRAPHIC************/
+                    console.log('<%=i%>')
+                    $grafica2 = document.querySelector("#grafica2<%=i%>");
+                    // Las etiquetas son las que van en el eje X. 
+                    etiquetas2 = ["a", "b", "c", "d"]
+                    // Podemos tener varios conjuntos de datos. Comencemos con uno
+                    datos = {
+                        label: "Number of answers per option",
+                        data: ['<%=options[i][3]%>', '<%=options[i][4]%>', '<%=options[i][5]%>', '<%=options[i][6]%>'], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
+                        borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
+                        borderWidth: 1,// Ancho del borde
+                    };
+                    new Chart($grafica2, {
+                        type: 'bar',// Tipo de gráfica
+                        data: {
+                            labels: etiquetas2,
+                            datasets: [
+                                datos,
+                                // Aquí más datos...
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                xAxes: [{
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Options'
+                                    }
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    },
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Number of answers'
+                                    }
+                                }],
+                            },
+                        }
+                    });               
+                </script>
+            <%}%>
+
+        <%}else{%>
+            <div class="d-flex justify-content-center align-items-center text-center alert alert-info fs-2">There are no questions in this game</div>
+        <%}%>
+    </div>
+</div>

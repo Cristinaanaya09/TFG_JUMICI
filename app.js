@@ -8,7 +8,11 @@ var partials = require('express-partials');
 var passport = require('passport')
 var indexRouter = require('./routes/index');
 var flash = require('connect-flash');
-const { models } = require('./models');
+
+const multer = require('multer');
+
+
+
 
 var app = express();
 require('./controllers/passport');
@@ -32,7 +36,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(partials());
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(flash());
 
 app.use('/', indexRouter);
@@ -45,8 +48,8 @@ app.use(function(req, res, next) {
 //VARIABLES GLOBALES
 app.use((req, res, next)=>{
   app.locals.success = req.flash('success');
-  app.locals.message = req.flash('message');
-  app.locals.success = req.flash('success');
+  app.locals.messages = req.flash('messages');
+  //app.locals.success = req.flash('success');
   app.locals.load = null;
   next();
 });
