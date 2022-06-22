@@ -156,9 +156,6 @@ exports.download = async (req, res, next) => {
 
 
 
-
-
-
 exports.deleteAction = async (req, res, next) => {
     try {
         console.log("deleteAction")
